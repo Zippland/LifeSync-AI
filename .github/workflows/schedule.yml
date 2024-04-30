@@ -2,7 +2,7 @@ name: Daily Task Run
 
 on:
   schedule:
-    - cron: '1 7 * * *'  # 每天 UTC 时间 17:00 运行，你可能需要根据你的时区调整
+    - cron: '0 9 * * *'  # 每天 UTC 时间 17:00 运行，你可能需要根据你的时区调整
 
 jobs:
   run_script:
