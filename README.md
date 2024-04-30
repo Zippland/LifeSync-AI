@@ -9,7 +9,7 @@ TaskCopilot is an efficient personal task management tool designed to help users
 ## Roadmap
 - [ ] Automatically add and remove calendar items through the Outlook REST API
 - [ ] Automate the addition and deletion of daily tasks via the Outlook REST API.
-- [ ] Use accurate daily weather data from Openweather.
+- [ ] Provide travel advice using accurate daily weather data from Openweather.
 - [X] Dynamically fetches task information from the Notion database.
 - [X] Generates priorities and advice for task execution using OpenAI GPT.
 - [X] Automatically sends daily tasks and advice through email.
