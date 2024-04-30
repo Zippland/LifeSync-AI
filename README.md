@@ -4,13 +4,15 @@
 - [中文 README](README_ZH.md)
 
 ## Introduction
-TaskPilot is an efficient personal Task management tool designed to help users prioritize tasks and effectively manage multiple projects. It integrates Weather Inquiry Function, Notion database management, OpenAI GPT-powered advice, and automated email notifications to enhance productivity for individuals and teams.
+TaskCopilot is an efficient personal task management tool designed to help users prioritize and effectively manage daily tasks. It integrates weather lookup functionality, Notion database management, OpenAI GPT-supported suggestions, automated email notifications, and automatic timetable generation to improve personal productivity.
 
-## Features
-- Use accurate daily weather data from Openweather.
-- Dynamically fetches task information from the Notion database.
-- Generates priorities and advice for task execution using OpenAI GPT.
-- Automatically sends daily tasks and advice through email.
+## Roadmap
+- [] Automatically add and remove calendar items through the Outlook REST API
+- [] Automate the addition and deletion of daily tasks via the Outlook REST API.
+- [] Use accurate daily weather data from Openweather.
+- [X] Dynamically fetches task information from the Notion database.
+- [X] Generates priorities and advice for task execution using OpenAI GPT.
+- [X] Automatically sends daily tasks and advice through email.
 
 ## Installation Guide
 
