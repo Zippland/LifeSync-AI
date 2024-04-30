@@ -7,7 +7,7 @@
 TaskCopilot 是一款高效的个人任务管理工具，旨在帮助用户对日常任务进行优先排序和有效管理。它集成了天气查询功能、Notion 数据库管理、OpenAI GPT 支持的建议、自动电子邮件通知和自动生成时间表等功能，以提高个人工作效率。
 
 ## Roadmap
-- [ ]通过 Outlook REST API 自动添加和删除日历项目
+- [ ] 通过 Outlook REST API 自动添加和删除日历项目。
 - [ ] 通过 Outlook REST API 自动添加和删除日常任务。
 - [ ] 使用 Openweather 提供的准确的每日天气数据。
 - [X] 从 Notion 数据库动态获取任务信息。
