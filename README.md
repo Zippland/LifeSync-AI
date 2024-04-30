@@ -1,12 +1,13 @@
-# Project Name: TaskPilot
+# TaskPilot
 
 - [English README](README.md)
 - [中文 README](README_ZH.md)
 
 ## Introduction
-TaskPilot is an efficient project management tool designed to help users prioritize tasks and effectively manage multiple projects. It integrates Notion database management, OpenAI GPT-powered advice, and automated email notifications to enhance productivity for individuals and teams.
+TaskPilot is an efficient personal Task management tool designed to help users prioritize tasks and effectively manage multiple projects. It integrates Weather Inquiry Function, Notion database management, OpenAI GPT-powered advice, and automated email notifications to enhance productivity for individuals and teams.
 
 ## Features
+- Use accurate daily weather data from Openweather.
 - Dynamically fetches task information from the Notion database.
 - Generates priorities and advice for task execution using OpenAI GPT.
 - Automatically sends daily tasks and advice through email.
