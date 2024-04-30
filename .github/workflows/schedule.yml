@@ -1,0 +1,26 @@
+name: Daily Task Run
+
+on:
+  schedule:
+    - cron: '1 7 * * *'  # 每天 UTC 时间 17:00 运行，你可能需要根据你的时区调整
+
+jobs:
+  run_script:
+    runs-on: ubuntu-latest  # 使用最新版本的 Ubuntu 运行环境
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'  # 根据你的需要选择 Python 版本
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run the script
+      run: python path/to/your_script.py
