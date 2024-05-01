@@ -1,8 +1,6 @@
 # SecondBrain
 
 - [English README](README_EN.md)
-- [日本語のREADME](README_JP.md)
-- [한국어 README](README_KR.md)
 - [中文 README](README.md)
 
 ## Introduction
