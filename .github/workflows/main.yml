@@ -42,5 +42,5 @@ jobs:
         USER_CAREER: ${{ secrets.USER_CAREER }}
         PRESENT_LOCATION: ${{ secrets.PRESENT_LOCATION }}
       run: |
-        python path/to/your_script.py  # 替换为你的主脚本路径
+        python main.py  # 替换为你的主脚本路径
 
