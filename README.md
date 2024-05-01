@@ -1,4 +1,4 @@
-# TaskCopilot
+# SecondBrain
 
 - [English README](README.md)
 - [中文 README](README_ZH.md)
@@ -9,7 +9,7 @@ TaskCopilot is an efficient personal task management tool designed to help users
 ## Roadmap
 - [ ] Monitor Wechat's bill flow and chart income and expenses.
 - [ ] Automatically add and remove calendar items and daily tasks through the Outlook REST API
-- [ ] Provide travel advice using accurate daily weather data from Openweather.
+- [X] Provide travel advice using accurate daily weather data from Openweather.
 - [X] Dynamically fetches task information from the Notion database.
 - [X] Generates priorities and advice for task execution using OpenAI GPT.
 - [X] Automatically sends daily tasks and advice through email.
