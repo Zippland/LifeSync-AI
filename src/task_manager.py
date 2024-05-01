@@ -44,7 +44,7 @@ def fetch_tasks_from_notion(mode="today"):
                     if mode == "future":
                         task['Date'] = task_date.strftime('%Y-%m-%d')
                     tasks.append(task)
-        print(tasks)
+        #print(tasks)
         print("Fetching success.")
         return tasks
     except Exception as e:
