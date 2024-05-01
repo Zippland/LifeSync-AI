@@ -29,7 +29,7 @@ def generate_advice_with_gpt(data, advice_part):
         elif advice_part == "5":
             prompt += f"\n{data}。\n\n"
 
-        print(prompt)
+        #print(prompt)
         print("Waiting for response...\n")
         # 系统提示词
         response = openai.ChatCompletion.create(
