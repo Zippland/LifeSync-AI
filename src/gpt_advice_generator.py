@@ -1,5 +1,5 @@
 import openai
-from config import OPENAI_API_KEY, GPT_VERSION, SCHEDUAL_PROMPT, PRESENT_LOCATION, USER_CAREER
+from config import OPENAI_API_KEY, GPT_VERSION, SCHEDULE_PROMPT, PRESENT_LOCATION, USER_CAREER
 
 def generate_advice_with_gpt(data, advice_part):
     print("\nGenerating advice with gpt...\n")
@@ -23,7 +23,7 @@ def generate_advice_with_gpt(data, advice_part):
         elif advice_part == "2" or advice_part == "3":
             prompt += f"以下是任务安排：\n{data}。\n"
             if advice_part == "3":
-                prompt += f"此外，如果没有被上述安排打断的话，{SCHEDUAL_PROMPT}，如果和上述时间冲突就作废。\n\n"
+                prompt += f"此外，如果没有被上述安排打断的话，{SCHEDULE_PROMPT}，如果和上述时间冲突就作废。\n\n"
         elif advice_part == "4":
             prompt += f"以下是未来任务安排：\n{data}。\n\n"
         elif advice_part == "5":

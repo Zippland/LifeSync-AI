@@ -3,7 +3,7 @@ import re
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from datetime import datetime
-from config import SMTP_SERVER, SMTP_PORT, EMAIL_SENDER, EMAIL_PASSWORD, EMAIL_RECEIVER, DEFINE_DATE, EMAIL_TITTLE
+from config import SMTP_SERVER, SMTP_PORT, EMAIL_SENDER, EMAIL_PASSWORD, EMAIL_RECEIVER, DEFINE_DATE, EMAIL_TITLE
 
 def send_email(body):
     print("Sending email...")
@@ -24,7 +24,7 @@ def send_email(body):
         message = MIMEMultipart()
         message['From'] = EMAIL_SENDER
         message['To'] = EMAIL_RECEIVER  # 确保已定义收件人地址
-        message['Subject'] = f"{EMAIL_TITTLE} {custom_date}"  # 使用自定义日期或今天的日期在主题中
+        message['Subject'] = f"{EMAIL_TITLE} {custom_date}"  # 使用自定义日期或今天的日期在主题中
 
         # 将正文设置为HTML格式，并使用清理后的正文
         message.attach(MIMEText(cleaned_body, 'html'))  # 使用HTML来格式化邮件内容
