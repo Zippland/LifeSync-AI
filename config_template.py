@@ -19,6 +19,7 @@ OPENWEATHER_API_KEY = "your_openweather_api_key"
 # personal information
 SCHEDUAL_PROMPT = "Wake up at 8:00, go to bed at 22:00, two hours of fitness from 19:00-21:00" # If the daily habitual arrangement is not interrupted
 USERNAME = "Zylan" # what GPT calls you
+USER_CAREER = ""
 PRESENT_LOCATION = "Canberra" # Geolocation settings for weather notifications
 
 # hyper parameter

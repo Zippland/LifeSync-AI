@@ -1,4 +1,5 @@
 import smtplib
+import re
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from datetime import datetime
@@ -7,6 +8,9 @@ from config import SMTP_SERVER, SMTP_PORT, EMAIL_SENDER, EMAIL_PASSWORD, EMAIL_R
 def send_email(body):
     print("Sending email...")
     try:
+        # 使用正则表达式清理body中的Markdown代码块标记
+        cleaned_body = re.sub(r'```(?:html)?', '', body)  # 删除```和```html
+
         # 判断 DEFINE_DATE 是否为空，如果为空则默认为今天的日期，否则使用自定义日期
         if DEFINE_DATE:
             try:
@@ -22,8 +26,8 @@ def send_email(body):
         message['To'] = EMAIL_RECEIVER  # 确保已定义收件人地址
         message['Subject'] = f"{EMAIL_TITTLE} {custom_date}"  # 使用自定义日期或今天的日期在主题中
 
-        # 将正文设置为Markdown格式
-        message.attach(MIMEText(body, 'plain'))  # 如果服务器支持可以尝试使用 'markdown'
+        # 将正文设置为HTML格式，并使用清理后的正文
+        message.attach(MIMEText(cleaned_body, 'html'))  # 使用HTML来格式化邮件内容
 
         server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
         server.starttls()  # 启用TLS

@@ -5,7 +5,7 @@ from config import NOTION_TOKEN, DATABASE_ID, DEFINE_DATE
 notion = Client(auth=NOTION_TOKEN)
 
 def fetch_tasks_from_notion(mode="today"):
-    print("Fetching tasks from Notion...\n")
+    print("\nFetching "+mode+" tasks from Notion...\n")
     try:
         results = notion.databases.query(database_id=DATABASE_ID)
         tasks = []
@@ -25,6 +25,7 @@ def fetch_tasks_from_notion(mode="today"):
             date_end = custom_date
         elif mode == "future":
             date_end = custom_date + timedelta(days=30)
+            custom_date += timedelta(days=1)
         else:
             print(f"Invalid mode: {mode}. Use 'today' for today's tasks or 'future' for tasks within the next month.")
             return []
@@ -38,7 +39,6 @@ def fetch_tasks_from_notion(mode="today"):
                         'Name': row['properties']['Name']['title'][0]['text']['content'] if row['properties']['Name']['title'] else 'No name',
                         'Location': row['properties']['Location']['rich_text'][0]['text']['content'] if 'rich_text' in row['properties']['Location'] and row['properties']['Location']['rich_text'] else 'No Location',
                         'Description': row['properties']['Description']['rich_text'][0]['text']['content'] if 'rich_text' in row['properties']['Description'] and row['properties']['Description']['rich_text'] else 'No description',
-                        'Projects': row['properties']['Projects']['rich_text'][0]['text']['content'] if 'rich_text' in row['properties']['Projects'] and row['properties']['Projects']['rich_text'] else 'No Projects',
                     }
                     # Add date to the task info only for the "future" mode
                     if mode == "future":
