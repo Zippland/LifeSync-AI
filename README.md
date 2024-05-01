@@ -3,7 +3,7 @@
 ## Introduction / 简介
 SecondBrain is an efficient life management tool designed to help users prioritize and effectively manage their daily tasks. It integrates weather query function, Notion database management, OpenAI GPT supported suggestions, automatic email notifications, personal cash flow, and other ALL-IN-ONE features to improve personal productivity. / SecondBrain 是一款高效的人生管理工具，旨在帮助用户对日常任务进行优先排序和有效管理。它集成了天气查询功能、Notion 数据库管理、OpenAI GPT 支持的建议、自动电子邮件通知、个人现金流水等 ALL-IN-ONE 功能，以提高个人工作效率。
 
-## Roadmap / 
+## Roadmap / 路线图
 - [ ] Monitor Wechat's bill flow and chart income and expenses / 监控 Wechat 的账单流水并绘制收支表单。
 - [ ] Automatically add and remove calendar items and daily tasks through the Outlook REST API / 通过 Outlook REST API 自动添加和删除日历和日常任务。
 - [X] Provide travel advice using accurate daily weather data from Openweather / 使用 Openweather 提供的准确的每日天气数据提供出行建议。
