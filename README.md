@@ -4,7 +4,7 @@
 - [中文 README](README_ZH.md)
 
 ## Introduction
-TaskCopilot is an efficient personal task management tool designed to help users prioritize and effectively manage daily tasks. It integrates weather lookup functionality, Notion database management, OpenAI GPT-supported suggestions, automated email notifications, and automatic timetable generation to improve personal productivity.
+SecondBrain is an efficient personal task management tool designed to help users prioritize and effectively manage daily tasks. It integrates weather lookup functionality, Notion database management, OpenAI GPT-supported suggestions, automated email notifications, and automatic timetable generation to improve personal productivity.
 
 ## Roadmap
 - [ ] Monitor Wechat's bill flow and chart income and expenses.
@@ -24,7 +24,7 @@ TaskCopilot is an efficient personal task management tool designed to help users
 ### Steps
 1. Clone the repository:
    ```
-   git clone https://github.com/Zippland/TaskPilot.git
+   git clone https://github.com/Zippland/SecondBrain.git
    ```
 2. Navigate to the project directory:
    ```
@@ -53,4 +53,4 @@ We welcome all types of contributions, including bug reports, feature requests, 
 This project is licensed under the [Apache License](LICENSE).
 
 ## Contact Information
-If you have any questions, please contact us via [email](mailto:zihan.jian@example.com).
+If you have any questions, please contact us via [email](mailto:zihan.jian@outlook.com).
