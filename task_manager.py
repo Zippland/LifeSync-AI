@@ -5,7 +5,7 @@ from config import NOTION_TOKEN, DATABASE_ID, DEFINE_DATE
 notion = Client(auth=NOTION_TOKEN)
 
 def fetch_tasks_from_notion():
-    print("fetching from notion...")
+    print("fetching from notion...\n")
     try:
         results = notion.databases.query(database_id=DATABASE_ID)
         tasks = []

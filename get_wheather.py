@@ -1,33 +1,37 @@
 import requests
-from config import PRESENT_LOCATION, DEFINE_DATE
+from config import PRESENT_LOCATION, DEFINE_DATE, OPENWEATHER_API_KEY
 from datetime import datetime
 
-def get_weather(location = PRESENT_LOCATION, date = DEFINE_DATE):
-    # Replace 'YOUR_WEATHER_API_KEY' with your actual weather API key
-    if date == "":
-        date = datetime.now().strftime("%Y-%m-%d")  # Default to today's date if not specified
-    url = f"http://api.weatherapi.com/v1/forecast.json?key=YOUR_WEATHER_API_KEY&q={location}&dt={date}&days=1&aqi=yes&alerts=no"
-    
+def get_weather():
+    # Replace 'YOUR_WEATHER_API_KEY' with your actual OpenWeather API key
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={PRESENT_LOCATION}&appid={OPENWEATHER_API_KEY}&units=metric"
+
     try:
         response = requests.get(url)
         response.raise_for_status()  # Raises an HTTPError for bad responses
         data = response.json()
 
-        # Check if 'forecast' and 'forecastday' keys are in the response data
-        if 'forecast' in data and 'forecastday' in data['forecast']:
-            forecast = data['forecast']['forecastday'][0]
-            return {
-                'temperature_range': f"{forecast['day']['mintemp_c']} to {forecast['day']['maxtemp_c']} °C",
-                'apparent_temperature': f"{forecast['day']['avgtemp_feelslike_c']} °C",
-                'humidity': forecast['day']['avghumidity'],
-                'air_quality': forecast['day']['condition']['text'],
-                'uv_index': forecast['day']['uv'],
-                'will_it_rain': forecast['day']['daily_will_it_rain'],
-                'rain_periods': [(hour['time'], hour['will_it_rain']) for hour in forecast['hour'] if hour['will_it_rain']]
-            }
-        else:
-            return {'error': 'Forecast data not found in the API response'}
-
+        # Extracting all relevant data from the JSON response
+        return {
+            'location': f"{data['name']}, {data['sys']['country']}",
+            'temperature': {
+                'current': f"{data['main']['temp']} °C",
+                'feels_like': f"{data['main']['feels_like']} °C",
+                'min': f"{data['main']['temp_min']} °C",
+                'max': f"{data['main']['temp_max']} °C"
+            },
+            'weather_condition': data['weather'][0]['description'],
+            'humidity': f"{data['main']['humidity']}%",
+            'visibility': f"{data['visibility']} meters",
+            'wind': {
+                'speed': f"{data['wind']['speed']} m/s",
+                'direction': f"{data['wind']['deg']} degrees"
+            },
+            'rain': f"{data.get('rain', {}).get('1h', 0)} mm/h" if 'rain' in data else 'No rain',
+            'clouds': f"{data['clouds']['all']}%",
+            'sunrise': datetime.fromtimestamp(data['sys']['sunrise']).strftime('%Y-%m-%d %H:%M:%S'),
+            'sunset': datetime.fromtimestamp(data['sys']['sunset']).strftime('%Y-%m-%d %H:%M:%S')
+        }
     except requests.RequestException as e:
         return {'error': f"Request error: {str(e)}"}
     except ValueError as e:
