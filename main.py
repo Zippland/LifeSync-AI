@@ -7,7 +7,7 @@ tasks = fetch_tasks_from_notion()
 weather = get_weather()
 if tasks:
     advice = generate_advice_with_gpt(weather, tasks)
-    # email_body = f"{advice}"
-    # send_email(email_body)
+    email_body = f"{advice}"
+    send_email(email_body)
 else:
     send_email("No tasks for today.")
