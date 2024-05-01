@@ -42,7 +42,7 @@ def generate_advice_with_gpt(data, advice_part):
             temperature = 0.3 # more accurate
         )
         print("Generated.\n")
-        print(response['choices'][0]['message']['content'].strip() if response['choices'] else "No guidance provided.")
+        #print(response['choices'][0]['message']['content'].strip() if response['choices'] else "No guidance provided.")
         return response['choices'][0]['message']['content'].strip() if response['choices'] else "No guidance provided."
     except Exception as e:
         print(f"Error interacting with OpenAI GPT: {e}")
