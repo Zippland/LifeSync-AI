@@ -1,7 +1,12 @@
 from dotenv import load_dotenv
 import os
 
-load_dotenv()  # 加载.env文件中的环境变量
+# 尝试加载 .env 文件，load_dotenv() 会返回一个布尔值表示加载是否成功
+env_file_loaded = load_dotenv()
+if env_file_loaded:
+    print(".env file loaded successfully")
+else:
+    print(".env file not found, loading environment variables from system")
 
 # Notion config
 NOTION_TOKEN = os.getenv("NOTION_TOKEN")
