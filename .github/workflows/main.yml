@@ -1,4 +1,4 @@
-name: Python Application
+name: Daily Report
 
 on:
   push:
