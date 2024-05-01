@@ -16,11 +16,11 @@ GPT_VERSION = "gpt-3.5-turbo"
 # wheather api
 OPENWEATHER_API_KEY = "your_openweather_api_key"
 
-# 个persn
+# personal information
 SCHEDUAL_PROMPT = "Wake up at 8:00, go to bed at 22:00, two hours of fitness from 19:00-21:00" # If the daily habitual arrangement is not interrupted
 USERNAME = "Zylan" # what GPT calls you
 PRESENT_LOCATION = "Canberra" # Geolocation settings for weather notifications
 
-# 超参数
+# hyper parameter
 DEFINE_DATE = "" # Select the date you need to schedule, the format is "YYYY-MM-DD", if it is empty it is today
 EMAIL_TITTLE = "Zylan's Schedule for" # The title of the email, which will be immediately followed by the date
