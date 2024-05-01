@@ -53,4 +53,4 @@ python main.py
 该项目采用 [Apache 许可证](LICENSE)。
 
 ## 联系方式
-如果你有任何问题，请通过 [email](mailto:zihan.jian@outlook.com) 联系我们。
+如果你有任何问题，请通过 [email](mailto:zihan.jian@outlook.com) 联系我。

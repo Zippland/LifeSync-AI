@@ -53,4 +53,4 @@ We welcome all forms of contribution, including bug reports, feature requests, a
 This project is under the [Apache License](LICENSE).
 
 ## Contact
-If you have any questions, please contact us at [email](mailto:zihan.jian@outlook.com).
+If you have any questions, please contact me at [email](mailto:zihan.jian@outlook.com).
