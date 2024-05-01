@@ -3,11 +3,10 @@ from src.email_notifier import send_email
 from src.gpt_advice_generator import generate_advice_with_gpt
 from src.get_wheather import get_weather
 
-tasks = fetch_tasks_from_notion()
+today_tasks = fetch_tasks_from_notion()
+future_tasks = fetch_tasks_from_notion("future")
 weather = get_weather()
-if tasks:
-    advice = generate_advice_with_gpt(weather, tasks)
-    # email_body = f"{advice}"
-    # send_email(email_body)
-else:
-    send_email("No tasks for today.")
+
+advice = generate_advice_with_gpt(weather, today_tasks,future_tasks)
+email_body = f"{advice}"
+send_email(email_body)
