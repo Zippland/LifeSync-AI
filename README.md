@@ -50,7 +50,7 @@ We welcome all types of contributions, including bug reports, feature requests, 
 4. Submit a pull request.
 
 ## License
-This project is licensed under the [Apache License](LICENSE.txt).
+This project is licensed under the [Apache License](LICENSE).
 
 ## Contact Information
 If you have any questions, please contact us via [email](mailto:zihan.jian@example.com).
