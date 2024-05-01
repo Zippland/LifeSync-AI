@@ -50,7 +50,7 @@ python main.py
 4. 提交合并请求。
 
 ## 许可证
-该项目采用 [MIT 许可证](LICENSE)。
+该项目采用 [Apache 许可证](LICENSE.txt)。
 
 ## 联系方式
 如果你有任何问题，请通过 [email](mailto:your.email@example.com) 联系我们。
