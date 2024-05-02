@@ -1,5 +1,8 @@
 # SecondBrain: Your Personal Assistant
 
+- [English README](README_EN)
+- [中文 README](README)
+
 ## Overview
 **SecondBrain** goes beyond traditional task management to provide a dynamic, AI-powered personal assistant designed to enhance life management and decision-making. Integrating tools like Notion for data management, OpenAI GPT for intelligent advice, and real-time environmental data feeds, SecondBrain helps users handle daily tasks with unprecedented efficiency and insight.
 

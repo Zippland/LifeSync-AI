@@ -1,5 +1,8 @@
 # SecondBrain：您的个人助理
 
+- [English README](README_EN)
+- [中文 README](README)
+
 ## 概览
 **SecondBrain** 超越了传统的任务管理功能，提供了一个动态的、由AI驱动的个人助理，旨在提高生活管理和决策能力。通过集成包括Notion数据处理、OpenAI GPT智能建议以及实时环境数据反馈等一系列工具，SecondBrain帮助用户以前所未有的效率和洞察力来应对日常任务。
 
