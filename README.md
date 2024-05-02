@@ -1,4 +1,4 @@
-# SecondBrain：您的个人助理
+# SecondBrain
 
 - [English README](README_EN.md)
 - [中文 README](README.md)
