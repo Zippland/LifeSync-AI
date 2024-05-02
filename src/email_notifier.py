@@ -8,10 +8,10 @@ from config import SMTP_SERVER, SMTP_PORT, EMAIL_SENDER, EMAIL_PASSWORD, EMAIL_R
 def send_email(body):
     print("Sending email...")
     try:
-        # 使用正则表达式清理body中的Markdown代码块标记
-        cleaned_body = re.sub(r'```(?:html)?', '', body)  # 删除```和```html
+        # Use regular expressions to clean Markdown code block markers from the body
+        cleaned_body = re.sub(r'```(?:html)?', '', body)  # Remove ``` and ```html
 
-        # 判断 DEFINE_DATE 是否为空，如果为空则默认为今天的日期，否则使用自定义日期
+        # Check if DEFINE_DATE is empty; if empty, use today's date, otherwise use the custom date
         if DEFINE_DATE:
             try:
                 custom_date = datetime.strptime(DEFINE_DATE, '%Y-%m-%d').strftime('%Y-%m-%d')
@@ -23,27 +23,22 @@ def send_email(body):
 
         message = MIMEMultipart()
         message['From'] = EMAIL_SENDER
-        message['To'] = EMAIL_RECEIVER
-        message['Subject'] = f"{EMAIL_TITLE} {custom_date}"
+        message['To'] = EMAIL_RECEIVER  # Ensure the recipient address is defined
+        message['Subject'] = f"{EMAIL_TITLE} {custom_date}"  # Use custom or today's date in the subject
 
-        # 将正文设置为HTML格式，并使用清理后的正文
-        message.attach(MIMEText(cleaned_body, 'html'))
+        # Set the body to HTML format and use the cleaned body
+        message.attach(MIMEText(cleaned_body, 'html'))  # Format email content as HTML
 
         server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
-        server.starttls()  # 启用TLS
+        server.starttls()  # Enable TLS
         server.login(EMAIL_SENDER, EMAIL_PASSWORD)
         server.sendmail(EMAIL_SENDER, EMAIL_RECEIVER, message.as_string())
         server.quit()
         print("Email sent successfully!")
     except smtplib.SMTPAuthenticationError:
-        print("Authentication failed: Check username and password.")
-    except smtplib.SMTPServerDisconnected:
-        print("Server unexpectedly disconnected")
+        print("Authentication failed: Check your SMTP username and password.")
     except smtplib.SMTPException as e:
         print("SMTP error occurred: " + str(e))
     except Exception as e:
-        print("An error occurred while sending the email: " + str(e))
-
-# Example usage
-body = "Here is your email body with ```code block``` that should be cleaned."
-send_email(body)
+        print("An error occurred while sending the email:")
+        print(e)
