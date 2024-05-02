@@ -3,7 +3,7 @@ from config import PRESENT_LOCATION, DEFINE_DATE, OPENWEATHER_API_KEY
 from datetime import datetime
 
 def get_weather():
-    # Replace 'YOUR_WEATHER_API_KEY' with your actual OpenWeather API key
+    # Build the request URL using the OpenWeather API
     url = f"https://api.openweathermap.org/data/2.5/weather?q={PRESENT_LOCATION}&appid={OPENWEATHER_API_KEY}&units=metric"
 
     try:
@@ -12,7 +12,7 @@ def get_weather():
         data = response.json()
 
         # Extracting all relevant data from the JSON response
-        return {
+        weather_info = {
             'location': f"{data['name']}, {data['sys']['country']}",
             'temperature': {
                 'current': f"{data['main']['temp']} °C",
@@ -32,6 +32,15 @@ def get_weather():
             'sunrise': datetime.fromtimestamp(data['sys']['sunrise']).strftime('%Y-%m-%d %H:%M:%S'),
             'sunset': datetime.fromtimestamp(data['sys']['sunset']).strftime('%Y-%m-%d %H:%M:%S')
         }
+
+        # Check if a specific date is defined and not for today
+        if DEFINE_DATE != "":
+            return {
+                'message': "I cannot provide a forecast for a specific date other than today, but here is today's weather:",
+                'weather': weather_info
+            }
+
+        return weather_info
     except requests.RequestException as e:
         return {'error': f"Request error: {str(e)}"}
     except ValueError as e:
