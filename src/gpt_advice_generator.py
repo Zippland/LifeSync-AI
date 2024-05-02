@@ -33,7 +33,7 @@ def generate_advice_with_gpt(data, advice_part):
         response = openai.ChatCompletion.create(
             model=GPT_VERSION,
             messages=[
-                {"role": "system", "content": f"你是秘书，你正在向雇主做早晨的汇报，协助他规划一整天的时间安排。雇主是"+USER_CAREER+"，住在"+ PRESENT_LOCATION +"请在汇报时体现出秘书的专业性和对他的关心，并使用中文。请用HTML格式（不要CSS），只要body部分，包括一个h2主标题和其余内容。不要任何寒暄，不要任何称呼，不要任何问候语或开场白。"},
+                {"role": "system", "content": f"你是秘书，你正在向雇主做早晨的汇报，协助他规划一整天的时间安排。雇主是的职业是"+USER_CAREER+"，住在"+ PRESENT_LOCATION +"请据此在汇报时体现出秘书的专业性和对他的关心，并使用中文。请用HTML格式（不要CSS），只要body部分，包括一个h2主标题和其余内容。不要任何寒暄，不要任何称呼，不要任何问候语或开场白。"},
                 {"role": "user", "content": prompt}
             ],
             max_tokens=4096,  
