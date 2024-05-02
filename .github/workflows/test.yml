@@ -24,10 +24,8 @@ jobs:
       env:
         NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
         DATABASE_ID: ${{ secrets.DATABASE_ID }}
-        SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
-        SMTP_PORT: 587
-        EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
-        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
+        MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
         EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         GPT_VERSION: ${{ secrets.GPT_VERSION }}
