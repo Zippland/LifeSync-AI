@@ -10,7 +10,7 @@
 - [X] **Notion Integration**: Automatically fetch and manage tasks from Notion databases.
 - [X] **Intelligent Advice Generation**: Use OpenAI GPT to generate prioritized task lists and strategic advice.
 - [X] **Weather Insights**: Receive real-time weather updates and tailored recommendations according to your schedule.
-- [X] **Email Notifications**: Send daily summaries and task alerts directly to your inbox, ensuring you're always prepared.
+- [X] **Daily Scheduled Email Notifications**: Send a daily summary and task reminders to your email every morning, ensuring you are always prepared.
 - [X] **Flexible Task Scheduling**: Adapt your task management intelligently based on real-time data and personalized advice.
 - [ ] **Route Recommendations**: Provide daily commuting recommendations based on users' travel purposes and environmental factors.
 - [ ] **Bill Monitoring and Summary**: Monitor users' bill transactions and dynamically summarize and chart them.
