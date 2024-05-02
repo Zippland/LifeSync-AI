@@ -22,6 +22,7 @@
 - Python 3.8+
 - A Notion account with API access
 - OpenAI API key
+- OpenWeather API key (free for personal use)
 
 ### Installation
 Clone the repository and install the required dependencies:
