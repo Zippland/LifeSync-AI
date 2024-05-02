@@ -1,0 +1,43 @@
+name: Daily Report
+
+on:
+  schedule:
+    - cron: '0 22 * * *'  # 每天 22 点 UTC 时间
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'  # 根据项目需求选择 Python 版本
+
+    - name: Install Dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run Deployment Script
+      env:
+        NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        DATABASE_ID: ${{ secrets.DATABASE_ID }}
+        SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+        SMTP_PORT: 587
+        EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        GPT_VERSION: ${{ secrets.GPT_VERSION }}
+        OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+        SCHEDULE_PROMPT: ${{ secrets.SCHEDULE_PROMPT }}
+        USERNAME: ${{ secrets.USERNAME }}
+        USER_CAREER: ${{ secrets.USER_CAREER }}
+        PRESENT_LOCATION: ${{ secrets.PRESENT_LOCATION }}
+        DEFINE_DATE: ""
+        EMAIL_TITLE: "Zylan's Schedule for"
+      run: |
+        python main.py
