@@ -1,4 +1,4 @@
-name: Deploy Application
+name: Daily Report
 
 on:
   push:
@@ -41,4 +41,4 @@ jobs:
         DEFINE_DATE: ""
         EMAIL_TITLE: "Zylan's Schedule for"
       run: |
-        python main.py  # 根据需要修改部署脚本的名称
+        python main.py  
