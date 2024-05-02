@@ -21,8 +21,9 @@
 ### Prerequisites
 - Python 3.8+
 - A Notion account with API access
+- Mailgun API key
 - OpenAI API key
-- OpenWeather API key (free for personal use)
+- OpenWeather API key
 
 ### Installation
 Clone the repository and install the required dependencies:

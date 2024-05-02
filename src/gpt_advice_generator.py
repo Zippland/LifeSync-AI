@@ -13,10 +13,8 @@ def generate_advice_with_gpt(data, advice_part):
             "4": "请在一个h2段落内总结：如果未来有需要提前花时间准备的任务，而且今天预估在准备周期中，请提醒我并告诉我怎么做。如果今天不在准备周期，就不用说。",
             "5": "请在一个h2段落内总结：你觉得要完成这些还需要注意什么？只用告诉我紧急且必须注意的事项。"
         }
-        # 构建提示词前缀
-        prompt_prefix = f"我是{USER_CAREER}，我住在{PRESENT_LOCATION}。\n"
         # 根据选择的部分添加到提示词
-        prompt = prompt_prefix + parts[advice_part] + "\n\n"
+        prompt = parts[advice_part] + "\n\n"
         # 根据选择的部分添加相关信息
         if advice_part == "1":
             prompt += f"以下是当日天气：\n{data}。\n\n"
@@ -35,7 +33,7 @@ def generate_advice_with_gpt(data, advice_part):
         response = openai.ChatCompletion.create(
             model=GPT_VERSION,
             messages=[
-                {"role": "system", "content": f"你是秘书，你正在向雇主做早晨的汇报，协助他规划一整天的时间安排。请在汇报时体现出秘书的专业性和对他的关心，并使用中文。请用HTML格式（不要CSS），只要body部分。包括一个h2主标题和其余内容，不要任何寒暄，不要任何称呼，不要任何问候语或开场白。"},
+                {"role": "system", "content": f"你是秘书，你正在向雇主做早晨的汇报，协助他规划一整天的时间安排。雇主是"+USER_CAREER+"，住在"+ PRESENT_LOCATION +"请在汇报时体现出秘书的专业性和对他的关心，并使用中文。请用HTML格式（不要CSS），只要body部分，包括一个h2主标题和其余内容。不要任何寒暄，不要任何称呼，不要任何问候语或开场白。"},
                 {"role": "user", "content": prompt}
             ],
             max_tokens=4096,  

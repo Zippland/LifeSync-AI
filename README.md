@@ -21,8 +21,9 @@
 ### 先决条件
 - Python 3.8+
 - 具有API访问权限的Notion账户
+- Mailgun API密钥
 - OpenAI API密钥
-- OpenWeather API密钥（对个人用户是免费的）
+- OpenWeather API密钥
 
 ### 安装
 克隆仓库并安装所需的依赖项：

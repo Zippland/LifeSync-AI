@@ -8,10 +8,8 @@ NOTION_TOKEN = os.getenv("NOTION_TOKEN")
 DATABASE_ID = os.getenv("DATABASE_ID")
 
 # Mailbox config
-SMTP_SERVER = os.getenv("SMTP_SERVER")
-SMTP_PORT = 587
-EMAIL_SENDER = os.getenv("EMAIL_SENDER")
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+MAILGUN_API_KEY = os.getenv("MAILGUN_API_KEY")
+MAILGUN_DOMAIN = os.getenv("MAILGUN_DOMAIN")
 EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
 
 # OpenAI GPT api

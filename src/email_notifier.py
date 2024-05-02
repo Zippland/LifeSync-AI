@@ -1,17 +1,15 @@
-import smtplib
+import requests
 import re
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 from datetime import datetime
-from config import SMTP_SERVER, SMTP_PORT, EMAIL_SENDER, EMAIL_PASSWORD, EMAIL_RECEIVER, DEFINE_DATE, EMAIL_TITLE
+from config import MAILGUN_API_KEY, MAILGUN_DOMAIN, EMAIL_RECEIVER, DEFINE_DATE, EMAIL_TITLE
 
 def send_email(body):
     print("Sending email...")
     try:
-        # Use regular expressions to clean Markdown code block markers from the body
-        cleaned_body = re.sub(r'```(?:html)?', '', body)  # Remove ``` and ```html
+        # 使用正则表达式清理body中的Markdown代码块标记
+        cleaned_body = re.sub(r'```(?:html)?', '', body)  # 删除```和```html
 
-        # Check if DEFINE_DATE is empty; if empty, use today's date, otherwise use the custom date
+        # 判断 DEFINE_DATE 是否为空，如果为空则默认为今天的日期，否则使用自定义日期
         if DEFINE_DATE:
             try:
                 custom_date = datetime.strptime(DEFINE_DATE, '%Y-%m-%d').strftime('%Y-%m-%d')
@@ -21,24 +19,27 @@ def send_email(body):
         else:
             custom_date = datetime.now().strftime('%Y-%m-%d')
 
-        message = MIMEMultipart()
-        message['From'] = EMAIL_SENDER
-        message['To'] = EMAIL_RECEIVER  # Ensure the recipient address is defined
-        message['Subject'] = f"{EMAIL_TITLE} {custom_date}"  # Use custom or today's date in the subject
+        # 配置邮件参数
+        data = {
+            "from": f"Excited User <mailgun@{MAILGUN_DOMAIN}>",
+            "to": [EMAIL_RECEIVER],
+            "subject": f"{EMAIL_TITLE} {custom_date}",
+            "html": cleaned_body
+        }
 
-        # Set the body to HTML format and use the cleaned body
-        message.attach(MIMEText(cleaned_body, 'html'))  # Format email content as HTML
+        # 发送邮件请求到 Mailgun API
+        response = requests.post(
+            f"https://api.mailgun.net/v3/{MAILGUN_DOMAIN}/messages",
+            auth=("api", MAILGUN_API_KEY),
+            data=data
+        )
+        
+        if response.status_code == 200:
+            print("Email sent successfully!")
+        else:
+            print(f"Failed to send email. Status code: {response.status_code}, Response: {response.text}")
 
-        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
-        server.starttls()  # Enable TLS
-        server.login(EMAIL_SENDER, EMAIL_PASSWORD)
-        server.sendmail(EMAIL_SENDER, EMAIL_RECEIVER, message.as_string())
-        server.quit()
-        print("Email sent successfully!")
-    except smtplib.SMTPAuthenticationError:
-        print("Authentication failed: Check your SMTP username and password.")
-    except smtplib.SMTPException as e:
-        print("SMTP error occurred: " + str(e))
     except Exception as e:
         print("An error occurred while sending the email:")
         print(e)
+
