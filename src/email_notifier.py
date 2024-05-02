@@ -23,11 +23,11 @@ def send_email(body):
 
         message = MIMEMultipart()
         message['From'] = EMAIL_SENDER
-        message['To'] = EMAIL_RECEIVER  # 确保已定义收件人地址
-        message['Subject'] = f"{EMAIL_TITLE} {custom_date}"  # 使用自定义日期或今天的日期在主题中
+        message['To'] = EMAIL_RECEIVER
+        message['Subject'] = f"{EMAIL_TITLE} {custom_date}"
 
         # 将正文设置为HTML格式，并使用清理后的正文
-        message.attach(MIMEText(cleaned_body, 'html'))  # 使用HTML来格式化邮件内容
+        message.attach(MIMEText(cleaned_body, 'html'))
 
         server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
         server.starttls()  # 启用TLS
@@ -35,9 +35,15 @@ def send_email(body):
         server.sendmail(EMAIL_SENDER, EMAIL_RECEIVER, message.as_string())
         server.quit()
         print("Email sent successfully!")
-    except smtplib.SMTPAuthenticationError as e:
-        print("Failed to authenticate with the SMTP server. Check your username and password.")
-        print(e)
+    except smtplib.SMTPAuthenticationError:
+        print("Authentication failed: Check username and password.")
+    except smtplib.SMTPServerDisconnected:
+        print("Server unexpectedly disconnected")
+    except smtplib.SMTPException as e:
+        print("SMTP error occurred: " + str(e))
     except Exception as e:
-        print("An error occurred while sending the email:")
-        print(e)
+        print("An error occurred while sending the email: " + str(e))
+
+# Example usage
+body = "Here is your email body with ```code block``` that should be cleaned."
+send_email(body)
