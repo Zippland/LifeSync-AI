@@ -1,56 +1,53 @@
-# SecondBrain
+# SecondBrain: Your Personal Assistant
 
-- [English README](README_EN.md)
-- [中文 README](README.md)
+## Overview
+**SecondBrain** goes beyond traditional task management to provide a dynamic, AI-powered personal assistant designed to enhance life management and decision-making. Integrating tools like Notion for data management, OpenAI GPT for intelligent advice, and real-time environmental data feeds, SecondBrain helps users handle daily tasks with unprecedented efficiency and insight.
 
-## Introduction
-SecondBrain is an efficient life planning and management tool designed to help users prioritize and effectively manage personal affairs and resources. It integrates Notion database management, OpenAI GPT support, intelligent scheduling, weather query function, personal cash flow query, email interaction, and more to enhance personal life efficiency.
+## Key Features
+- [X] **Notion Integration**: Automatically fetch and manage tasks from Notion databases.
+- [X] **Intelligent Advice Generation**: Use OpenAI GPT to generate prioritized task lists and strategic advice.
+- [X] **Weather Insights**: Receive real-time weather updates and tailored recommendations according to your schedule.
+- [X] **Email Notifications**: Send daily summaries and task alerts directly to your inbox, ensuring you're always prepared.
+- [X] **Flexible Task Scheduling**: Adapt your task management intelligently based on real-time data and personalized advice.
+- [ ] **Route Recommendations**: Provide daily commuting recommendations based on users' travel purposes and environmental factors.
+- [ ] **Bill Monitoring and Summary**: Monitor users' bill transactions and dynamically summarize and chart them.
+- [ ] **Automated Calendar and Task Management**: Automatically manage calendar schedules and daily tasks through mainstream calendar and task management tools.
 
-## Roadmap
-- [ ] Monitor WeChat billing statements and draw up income and expenditure forms.
-- [ ] Automatically add and remove calendars and daily tasks through MS To-Do and Outlook.
-- [X] Provide travel suggestions using accurate daily weather data from Openweather.
-- [X] Dynamically fetch task information from the Notion database.
-- [X] Use OpenAI GPT to generate task execution priorities and suggestions.
-- [X] Automatically send daily tasks and suggestions via email.
-
-## Installation Guide
+## Getting Started
 
 ### Prerequisites
-- Python 3.8 or higher
-- Notion account and API access permissions
+- Python 3.8+
+- A Notion account with API access
 - OpenAI API key
 
-### Steps
-1. Clone the repository:
-   ```
-   git clone https://github.com/Zippland/SecondBrain.git
-   ```
-2. Enter the project directory:
-   ```
-   cd TaskPilot
-   ```
-3. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
-
-## Instructions for Use
-To start the project, run the following command:
+### Installation
+Clone the repository and install the required dependencies:
+```bash
+git clone https://github.com/Zippland/SecondBrain.git
+cd SecondBrain
+pip install -r requirements.txt
 ```
+
+### Configuration
+Edit `config.py` to set your Notion credentials, OpenAI key, and other preferences such as your preferred SMTP settings for email notifications.
+
+### Usage
+Run the following command to activate your personal assistant:
+```bash
 python main.py
 ```
-Make sure all necessary configuration information is correctly set in the `config.py` file, including Notion's token, database ID, SMTP server information, and OpenAI's API key.
+Ensure all configurations in `config.py` are correct before launching the application.
 
-## Contribution Guide
-We welcome all forms of contribution, including bug reports, feature requests, and code submissions. Please follow the steps below to contribute your strength:
-1. Fork the repository and create your branch.
-2. If you've added functionality, please add tests.
-3. Ensure your code adheres to the existing code style.
-4. Submit a pull request.
+## Contribution
+We welcome contributions of all forms. To contribute:
+1. Fork the repository.
+2. Create your feature branch.
+3. Add tests if you're adding functionality.
+4. Ensure your changes adhere to the project's coding style.
+5. Submit a pull request.
 
 ## License
-This project is under the [Apache License](LICENSE).
+Licensed under the [Apache License](LICENSE).
 
 ## Contact
-If you have any questions, please contact me at [email](mailto:zihan.jian@outlook.com).
+For support or inquiries, please email me at [zihan.jian@outlook.com](mailto:zihan.jian@outlook.com).

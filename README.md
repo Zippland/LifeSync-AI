@@ -1,56 +1,53 @@
-# SecondBrain
+# SecondBrain：您的个人助理
 
-- [English README](README_EN.md)
-- [中文 README](README.md)
+## 概览
+**SecondBrain** 超越了传统的任务管理功能，提供了一个动态的、由AI驱动的个人助理，旨在提高生活管理和决策能力。通过集成包括Notion数据处理、OpenAI GPT智能建议以及实时环境数据反馈等一系列工具，SecondBrain帮助用户以前所未有的效率和洞察力来应对日常任务。
 
-## 简介
-SecondBrain 是一款高效的人生规划及管理工具，旨在帮助用户对个人事务和个人资源进行优先排序和有效管理。它集成了Notion 数据库管理、OpenAI GPT 支持、智能时间安排、天气查询功能、个人现金流水查询、电子邮件交互等等功能，以提高个人生活效率。
+## 主要功能
+- [X] **Notion集成**：自动获取并管理Notion数据库中的任务。
+- [X] **智能建议生成**：利用OpenAI GPT生成优先级任务列表和战略性建议。
+- [X] **天气信息**：获取实时天气更新和根据您的日程定制的建议。
+- [X] **邮件通知**：直接发送日常总结和任务提醒到您的邮箱，确保您始终准备就绪。
+- [X] **灵活的任务调度**：根据实时数据和个性化建议智能调整您的任务管理。
+- [ ] **路线建议**：根据用户的出行目的和环境因素，提供每日出行的路线建议。
+- [ ] **账单监控与总结**：监控用户的账单流水，并动态地总结和绘制表单。
+- [ ] **日历和任务自动化管理**：通过主流的日历和task管理工具自动增删改查日历日程和日常任务。
 
-## Roadmap
-- [ ] 监控微信的账单流水并绘制收支表单。
-- [ ] 通过ms to-do和outlook自动添加和删除日历和日常任务。
-- [X] 使用 Openweather 提供的准确的每日天气数据提供出行建议。
-- [X] 从 Notion 数据库动态获取任务信息。
-- [X] 使用 OpenAI GPT 生成任务执行的优先级和建议。
-- [X] 通过电子邮件自动发送每日任务和建议。
+## 入门指南
 
-## 安装指南
+### 先决条件
+- Python 3.8+
+- 具有API访问权限的Notion账户
+- OpenAI API密钥
 
-### 环境要求
-- Python 3.8 或更高版本
-- Notion 账号和相关 API 访问权限
-- OpenAI API 密钥
-
-### 步骤
-1. 克隆仓库：
-   ```
-   git clone https://github.com/Zippland/SecondBrain.git
-   ```
-2. 进入项目目录：
-   ```
-   cd TaskPilot
-   ```
-3. 安装依赖：
-   ```
-   pip install -r requirements.txt
-   ```
-
-## 使用说明
-要启动项目，请运行以下命令：
+### 安装
+克隆仓库并安装所需的依赖项：
+```bash
+git clone https://github.com/Zippland/SecondBrain.git
+cd SecondBrain
+pip install -r requirements.txt
 ```
+
+### 配置
+编辑 `config.py` 文件以设置您的Notion凭据、OpenAI密钥以及其他首选项，如电子邮件通知的SMTP设置。
+
+### 使用
+运行以下命令激活您的个人助理：
+```bash
 python main.py
 ```
-确保在 `config.py` 文件中正确设置了所有必要的配置信息，包括 Notion 的 token、数据库 ID、SMTP 服务器信息和 OpenAI 的 API 密钥。
+启动应用程序前，请确保 `config.py` 中的所有配置都是正确的。
 
-## 贡献指南
-我们欢迎所有形式的贡献，包括错误报告、功能请求和代码提交。请遵循以下步骤贡献你的力量：
-1. Fork 仓库并创建你的分支。
-2. 如果你添加了功能，请添加测试。
-3. 确保你的代码符合现有代码风格。
-4. 提交合并请求。
+## 贡献
+我们欢迎各种形式的贡献。要贡献，请：
+1. Fork仓库。
+2. 创建您的功能分支。
+3. 如果您添加了功能，请添加测试。
+4. 确保您的更改符合项目的编码风格。
+5. 提交合并请求。
 
 ## 许可证
-该项目采用 [Apache 许可证](LICENSE)。
+根据 [Apache 许可证](LICENSE) 许可。
 
 ## 联系方式
-如果你有任何问题，请通过 [email](mailto:zihan.jian@outlook.com) 联系我。
+如需支持或查询，请通过[zihan.jian@outlook.com](mailto:zihan.jian@outlook.com)与我联系。
