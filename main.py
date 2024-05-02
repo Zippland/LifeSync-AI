@@ -1,5 +1,5 @@
 import re
-from src.task_manager import fetch_tasks_from_notion
+from get_task import fetch_tasks_from_notion
 from src.email_notifier import send_email
 from src.gpt_advice_generator import generate_advice_with_gpt
 from src.get_wheather import get_weather
