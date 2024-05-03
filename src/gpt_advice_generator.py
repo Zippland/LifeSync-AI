@@ -2,7 +2,7 @@ import openai
 from config import OPENAI_API_KEY, GPT_VERSION, SCHEDULE_PROMPT, PRESENT_LOCATION, USER_CAREER
 
 def generate_advice_with_gpt(data, advice_part):
-    print("\nGenerating advice with gpt...[ "+advice_part+" ]\n")
+    print("\nGenerating advice with gpt...")
     try:
         openai.api_key = OPENAI_API_KEY
         # 根据advice_part变量来确定需要生成的建议部分
@@ -17,18 +17,24 @@ def generate_advice_with_gpt(data, advice_part):
         prompt = parts[advice_part] + "\n\n"
         # 根据选择的部分添加相关信息
         if advice_part == "1":
+            print("[当日天气]")
             prompt += f"以下是当日天气：\n{data}。\n\n"
         elif advice_part == "2" or advice_part == "3":
             prompt += f"以下是今天的任务安排（可能包含以前没完成的任务）：\n{data}。\n"
-            if advice_part == "3":
+            if advice_part == "2":
+                print("任务总结")
+            else:
+                print("[时间轴]")
                 prompt += f"此外，如果没有被上述安排打断的话，{SCHEDULE_PROMPT}，如果和上述时间冲突就作废。\n\n"
         elif advice_part == "4":
+            print("[未来规划]")
             prompt += f"以下是未来任务安排：\n{data}。\n\n"
         elif advice_part == "5":
+            print("[注意事项]")
             prompt += f"\n{data}。\n\n"
 
         #print(prompt)
-        print("Waiting for response...\n")
+        print("Waiting for response...")
         # 系统提示词
         response = openai.ChatCompletion.create(
             model=GPT_VERSION,
