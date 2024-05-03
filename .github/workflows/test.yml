@@ -34,6 +34,7 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
         USER_CAREER: ${{ secrets.USER_CAREER }}
         PRESENT_LOCATION: ${{ secrets.PRESENT_LOCATION }}
+        TIME_ZONE: ${{ secrets.TIME_ZONE }}
         DEFINE_DATE: ""
         EMAIL_TITLE: "Zylan's Schedule for"
       run: |

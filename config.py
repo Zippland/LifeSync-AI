@@ -24,6 +24,7 @@ SCHEDULE_PROMPT =  os.getenv("SCHEDULE_PROMPT")
 USERNAME =  os.getenv("USERNAME")
 USER_CAREER =  os.getenv("USER_CAREER")
 PRESENT_LOCATION = os.getenv("PRESENT_LOCATION")
+TIME_ZONE = os.getenv("TIME_ZONE")
 
 # Hyper parameters
 DEFINE_DATE = ""
