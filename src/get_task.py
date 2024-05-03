@@ -4,7 +4,7 @@ from config import NOTION_TOKEN, DATABASE_ID, DEFINE_DATE
 
 notion = Client(auth=NOTION_TOKEN)
 
-def fetch_tasks_from_notion(mode="today"):
+def fetch_tasks_from_notion(custom_date, mode="today"):
     print("\nFetching [ "+mode+" ] tasks from Notion...\n")
     try:
         results = notion.databases.query(
@@ -17,16 +17,6 @@ def fetch_tasks_from_notion(mode="today"):
             }
         )
         tasks = []
-
-        # Determine the custom date; default to today if DEFINE_DATE is not set or invalid
-        if DEFINE_DATE:
-            try:
-                custom_date = datetime.strptime(DEFINE_DATE, '%Y-%m-%d').date()
-            except ValueError:
-                print("Invalid date format in DEFINE_DATE. It should be 'YYYY-MM-DD'. Using today's date instead.")
-                custom_date = datetime.now().date()
-        else:
-            custom_date = datetime.now().date()
 
         # Define the date range based on the mode
         if mode == "today":
