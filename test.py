@@ -1,28 +1,23 @@
 import re
-import pytz
 from src.get_task import fetch_tasks_from_notion
 from src.email_notifier import send_email
 from src.gpt_advice_generator import generate_advice_with_gpt
 from src.get_wheather import get_weather
 from datetime import datetime
-from config import USERNAME, DEFINE_DATE, PRESENT_LOCATION, TIME_ZONE
+from config import USERNAME, DEFINE_DATE, PRESENT_LOCATION
 
-# Convert TIME_ZONE to an integer and use it to get the correct time zone
-utc_offset = int(TIME_ZONE)
-timezone = pytz.FixedOffset(utc_offset * 60)  # pytz.FixedOffset expects offset in minutes
+today_tasks = fetch_tasks_from_notion()
+future_tasks = fetch_tasks_from_notion("future")
+weather = get_weather()
 
 if DEFINE_DATE:
     try:
-        custom_date = datetime.strptime(DEFINE_DATE, '%Y-%m-%d').astimezone(timezone).strftime('%Y-%m-%d')
+        custom_date = datetime.strptime(DEFINE_DATE, '%Y-%m-%d').strftime('%Y-%m-%d')
     except ValueError:
         print("Invalid date format in DEFINE_DATE. It should be 'YYYY-MM-DD'. Using today's date instead.")
-        custom_date = datetime.now(timezone).strftime('%Y-%m-%d')
+        custom_date = datetime.now().strftime('%Y-%m-%d')
 else:
-    custom_date = datetime.now(timezone).strftime('%Y-%m-%d')
-
-today_tasks = fetch_tasks_from_notion("", custom_date)
-future_tasks = fetch_tasks_from_notion("future", custom_date)
-weather = get_weather(custom_date)
+    custom_date = datetime.now().strftime('%Y-%m-%d')
 
 no_format = ""
 advice = "<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">  <style> body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; } .container { max-width: 600px; margin: auto; background: #ffffff; padding: 20px; } .header { background-color: #0088ff; color: #ffffff; padding: 10px; text-align: center; } .body { padding: 20px; color: #333333; line-height: 1.6; } .footer { background-color: #0088ff; color: #ffffff; padding: 10px; text-align: center; } .section { margin-bottom: 20px; } </style> </head> <body> <div class=\"container\"> <div class=\"header\"> <h1>Zylan's Task for "+custom_date+"</h1> </div> <div class=\"body\"> <div class=\"section\"> <h2>尊敬的"+USERNAME+"：</h2> <p>以下是您在"+PRESENT_LOCATION+" "+custom_date+" 的日常提醒邮件。</p> </div> <div class=\"section\">"
@@ -52,4 +47,4 @@ advice += no_format_temp
 # ending
 advice += "</div> <p>希望今日的安排能助您高效完成任务。</p>    <p>祝您今天工作顺利，心情愉快！</p>    <p>秘书呈上</p></body></html>"
 email_body = f"{advice}"
-print(email_body, custom_date)
+send_email(email_body)

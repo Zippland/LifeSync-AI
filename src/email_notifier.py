@@ -1,13 +1,23 @@
 import requests
 import re
 from datetime import datetime
-from config import MAILGUN_API_KEY, MAILGUN_DOMAIN, EMAIL_RECEIVER, EMAIL_TITLE
+from config import MAILGUN_API_KEY, MAILGUN_DOMAIN, EMAIL_RECEIVER, DEFINE_DATE, EMAIL_TITLE
 
-def send_email(body,custom_date):
+def send_email(body):
     print("Sending email...")
     try:
         # 使用正则表达式清理body中的Markdown代码块标记
         cleaned_body = re.sub(r'```(?:html)?', '', body)  # 删除```和```html
+
+        # 判断 DEFINE_DATE 是否为空，如果为空则默认为今天的日期，否则使用自定义日期
+        if DEFINE_DATE:
+            try:
+                custom_date = datetime.strptime(DEFINE_DATE, '%Y-%m-%d').strftime('%Y-%m-%d')
+            except ValueError:
+                print("Invalid date format in DEFINE_DATE. It should be 'YYYY-MM-DD'. Using today's date instead.")
+                custom_date = datetime.now().strftime('%Y-%m-%d')
+        else:
+            custom_date = datetime.now().strftime('%Y-%m-%d')
 
         # 配置邮件参数
         data = {
