@@ -7,6 +7,7 @@
 **SecondBrain** goes beyond traditional task management capabilities, offering a dynamic, AI-driven personal assistant designed to enhance life management and decision-making skills. By integrating a range of tools including cross-platform task collaboration, AI-powered suggestions, tracking of bills and expenses, and real-time environmental data feedback, SecondBrain empowers users to tackle daily tasks with unprecedented efficiency and insight.
 
 ## Key Features
+- [X] **GHA automation support**: deployed in github action to run the program fully automated.
 - [X] **Notion Integration**: Automatically fetch and manage tasks from Notion databases.
 - [X] **Intelligent Advice Generation**: Use OpenAI GPT to generate prioritized task lists and strategic advice.
 - [X] **Weather Insights**: Receive real-time weather updates and tailored recommendations according to your schedule.
