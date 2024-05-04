@@ -57,16 +57,17 @@ on:
     - cron: '0 22 * * *'  # 每天 22 点 （此处是启动时间，以UTC 时间算
   workflow_dispatch:
 ```
-然后进入 Setting -> Security -> Secrets and Variables ->
-配置如下变量：
-- ENV_DATABASE_ID
-- ENV_NOTION_TOKEN
-- MAILGUN_API_KEY
-- MAILGUN_DOMAIN
-- OPENAI_API_KEY
-- OPENWEATHER_API_KEY
+然后进入 `Setting -> Security -> Secrets and Variables -> Repository secrets`
 
-此程序将会在固定时间自动运行，也可手动进入Action->Daily Report点击运行
+配置如下变量：
+- `ENV_DATABASE_ID`
+- `ENV_NOTION_TOKEN`
+- `MAILGUN_API_KEY`
+- `MAILGUN_DOMAIN`
+- `OPENAI_API_KEY`
+- `OPENWEATHER_API_KEY`
+
+此程序将会在固定时间自动运行，也可手动进入 `Action -> Daily Report-> run  workflow` 点击运行
 
 ## 贡献
 我们欢迎各种形式的贡献。要贡献，请：
