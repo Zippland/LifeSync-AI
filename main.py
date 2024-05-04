@@ -1,7 +1,7 @@
 import pytz
-from src.email.format_email import format_email
-from src.get_task.task_notion import fetch_tasks_from_notion
-from src.email.email_notifier import send_email
+from src.send_email.format_email import format_email
+from get_task.task_from_notion import fetch_tasks_from_notion
+from src.send_email.email_notifier import send_email
 from src.gpt_advice_generator import generate_advice_with_gpt
 from src.get_wheather import get_weather
 from datetime import datetime

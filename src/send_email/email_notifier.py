@@ -21,7 +21,7 @@ def send_email(body):
 
         # 配置邮件参数
         data = {
-            "from": f"Excited User <mailgun@{MAILGUN_DOMAIN}>",
+            "from": f"LifeSync-AI <mailgun@{MAILGUN_DOMAIN}>",
             "to": [EMAIL_RECEIVER],
             "subject": f"{EMAIL_TITLE} {custom_date}",
             "html": cleaned_body
