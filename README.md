@@ -36,7 +36,11 @@ pip install -r requirements.txt
 ```
 
 ### 配置
-编辑 `config.py` 文件以设置您的Notion凭据、OpenAI密钥以及其他首选项，如电子邮件通知的SMTP设置。
+先复制此页面于notion：
+```
+https://ubiquitous-myth-d1f.notion.site/74dc39a6d0fc41ae9c353d8f2ae734b9?v=b1487a20df1647f2b1cb33e3b61d80f2&pvs=4
+```
+然后在 `config.py` 文件以设置您USER界面Notion、OpenAI密钥以及openweather API及其他首选项。
 
 ### 使用
 运行以下命令激活您的个人助理：
