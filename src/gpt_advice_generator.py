@@ -1,4 +1,5 @@
 import openai
+import re
 from config import OPENAI_API_KEY, GPT_VERSION, SCHEDULE_PROMPT, PRESENT_LOCATION, USER_CAREER
 
 def generate_advice_with_gpt(data, advice_part):
@@ -47,7 +48,7 @@ def generate_advice_with_gpt(data, advice_part):
         )
         print("Generated.\n")
         # print(response['choices'][0]['message']['content'].strip() if response['choices'] else "No guidance provided.")
-        return response['choices'][0]['message']['content'].strip() if response['choices'] else "No guidance provided."
+        return re.sub(r'<body>|</body>|```html?|```', '', response['choices'][0]['message']['content'].strip() if response['choices'] else "No guidance provided.")
     except Exception as e:
         print(f"Error interacting with OpenAI GPT: {e}")
         return "There was an error generating advice."
