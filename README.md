@@ -21,8 +21,8 @@
 ## 入门指南
 
 ### 先决条件
-- Python 3.8+
-- 具有API访问权限的Notion账户
+- Python 3.8+ （云端部署不需要）
+- 具有API访问权限的Notion账户（需自行配置intergretion）
 - Mailgun API密钥
 - OpenAI API密钥
 - OpenWeather API密钥
