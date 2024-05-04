@@ -52,7 +52,7 @@ python main.py
 在界面右上角fork本仓库。
 
 修改`.github/workflows/deploy.yml`文件：
-```ymal
+```yaml
 on:
   schedule:
     - cron: '0 22 * * *'  # 每天 22 点 （此处是启动时间，以UTC 时间算
