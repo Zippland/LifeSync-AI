@@ -27,27 +27,45 @@
 - OpenAI API密钥
 - OpenWeather API密钥
 
-### 安装
-克隆仓库并安装所需的依赖项：
-```bash
-git clone https://github.com/Zippland/LifeSync-AI.git
-cd LifeSync-AI
-pip install -r requirements.txt
-```
-
 ### 配置
 先打开下列两个页面并复制于notion：
 1. [Notion Second Braind 模板](https://ubiquitous-myth-d1f.notion.site/Second-Brain-991f084173fb4649bcb36a438fb648c0?pvs=4)
 2. [用户信息配置界面](https://ubiquitous-myth-d1f.notion.site/74dc39a6d0fc41ae9c353d8f2ae734b9?v=b1487a20df1647f2b1cb33e3b61d80f2&pvs=4)
 
-然后配置 `config.py` 文件以设置您用户信息配置界面的token、OpenAI密钥以及openweather API。
+### 安装及运行 
+#### 本地安装
+fork仓库并安装所需的依赖项：
+```bash
+git clone https://github.com/Zippland/LifeSync-AI.git
+cd LifeSync-AI
+pip install -r requirements.txt
+```
+配置 `config.py` 文件以设置您用户信息配置界面的token、OpenAI密钥以及openweather API。
 
-### 使用
-运行以下命令激活您的个人助理：
+然后运行以下命令激活您的个人助理：
 ```bash
 python main.py
 ```
 启动应用程序前，请确保 `config.py` 中的所有配置都是正确的。
+
+#### 云端运行
+在界面右上角fork本仓库。
+修改`.github/workflows/deploy.yml`文件：
+```ymal
+on:
+  schedule:
+    - cron: '0 22 * * *'  # 每天 22 点 （此处是启动时间，以UTC 时间算
+  workflow_dispatch:
+```
+然后进入 Setting -> Security -> Secrets and Variables ->
+配置如下变量：
+- ENV_DATABASE_ID
+- ENV_NOTION_TOKEN
+- MAILGUN_API_KEY
+- MAILGUN_DOMAIN
+- OPENAI_API_KEY
+- OPENWEATHER_API_KEY
+此程序将会在固定时间自动运行，也可手动进入Action->Daily Report点击运行
 
 ## 贡献
 我们欢迎各种形式的贡献。要贡献，请：
