@@ -65,6 +65,7 @@ on:
 - MAILGUN_DOMAIN
 - OPENAI_API_KEY
 - OPENWEATHER_API_KEY
+- 
 此程序将会在固定时间自动运行，也可手动进入Action->Daily Report点击运行
 
 ## 贡献
