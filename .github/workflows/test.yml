@@ -22,20 +22,11 @@ jobs:
 
     - name: Run Deployment Script
       env:
-        NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-        DATABASE_ID: ${{ secrets.DATABASE_ID }}
+        ENV_NOTION_TOKEN: ${{ secrets.ENV_NOTION_TOKEN }}
+        ENV_DATABASE_ID: ${{ secrets.ENV_DATABASE_ID }}
         MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
         MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
-        EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        GPT_VERSION: ${{ secrets.GPT_VERSION }}
         OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
-        SCHEDULE_PROMPT: ${{ secrets.SCHEDULE_PROMPT }}
-        USERNAME: ${{ secrets.USERNAME }}
-        USER_CAREER: ${{ secrets.USER_CAREER }}
-        PRESENT_LOCATION: ${{ secrets.PRESENT_LOCATION }}
-        TIME_ZONE: ${{ secrets.TIME_ZONE }}
-        DEFINE_DATE: ""
-        EMAIL_TITLE: "Zylan's Schedule for"
       run: |
         python test.py
