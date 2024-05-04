@@ -16,6 +16,7 @@ for user_id in user_data:
     user_database_id = user_data[user_id]["USER_DATABASE_ID"]
     gpt_version = user_data[user_id]["GPT_VERSION"]
     present_location = user_data[user_id]["PRESENT_LOCATION"]
+    user_name = user_data[user_id]["USER_NAME"]
     user_career = user_data[user_id]["USER_CAREER"]
     schedule_prompt = user_data[user_id]["SCHEDULE_PROMPT"]
     custom_date = utc_now.astimezone(pytz.timezone('Etc/GMT-' + user_data[user_id]["TIME_ZONE"])).date()
@@ -25,7 +26,7 @@ for user_id in user_data:
     weather = get_weather(present_location)
 
     no_format_advice = ""
-    formated_advice = format_email()
+    formated_advice = format_email("", user_name)
 
     # weather
     adviece_weather = generate_advice_with_gpt("1", weather, gpt_version, present_location, user_career)
