@@ -1,4 +1,4 @@
-# SecondBrain
+# LifeSync-AI
 
 - [English README](README_EN.md)
 - [中文 README](README.md)
@@ -30,7 +30,7 @@
 ### 安装
 克隆仓库并安装所需的依赖项：
 ```bash
-git clone https://github.com/Zippland/SecondBrain.git
+git clone https://github.com/Zippland/LifeSync-AI.git
 cd SecondBrain
 pip install -r requirements.txt
 ```
