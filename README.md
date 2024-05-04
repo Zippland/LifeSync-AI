@@ -36,7 +36,7 @@ pip install -r requirements.txt
 ```
 
 ### 配置
-先复制此页面于notion：
+先打开此页面并复制于notion：
 ```
 https://ubiquitous-myth-d1f.notion.site/74dc39a6d0fc41ae9c353d8f2ae734b9?v=b1487a20df1647f2b1cb33e3b61d80f2&pvs=4
 ```
