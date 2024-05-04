@@ -33,7 +33,7 @@
 2. [用户信息配置界面](https://ubiquitous-myth-d1f.notion.site/74dc39a6d0fc41ae9c353d8f2ae734b9?v=b1487a20df1647f2b1cb33e3b61d80f2&pvs=4)
 
 ### 安装及运行 
-#### 本地安装
+#### 1. 本地运行（不推荐）
 fork仓库并安装所需的依赖项：
 ```bash
 git clone https://github.com/Zippland/LifeSync-AI.git
@@ -48,7 +48,7 @@ python main.py
 ```
 启动应用程序前，请确保 `config.py` 中的所有配置都是正确的。
 
-#### 云端运行
+#### 2. 云端运行（推荐）
 在界面右上角fork本仓库。
 修改`.github/workflows/deploy.yml`文件：
 ```ymal
