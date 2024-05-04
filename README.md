@@ -50,6 +50,7 @@ python main.py
 
 #### 2. 云端运行（推荐）
 在界面右上角fork本仓库。
+
 修改`.github/workflows/deploy.yml`文件：
 ```ymal
 on:
