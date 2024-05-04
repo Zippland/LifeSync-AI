@@ -37,14 +37,8 @@ pip install -r requirements.txt
 
 ### 配置
 先打开下列两个页面并复制于notion。
-1. 任务数据库：
-```
-https://ubiquitous-myth-d1f.notion.site/1bd1c2c586144ee18b07a6a698edf16f?v=fd6a11be5a5b45b28be53d307940a6ba
-```
-2. 用户信息配置界面：
-```
-https://ubiquitous-myth-d1f.notion.site/74dc39a6d0fc41ae9c353d8f2ae734b9?v=b1487a20df1647f2b1cb33e3b61d80f2&pvs=4
-```
+1. [Notion Second Braind 模板](https://ubiquitous-myth-d1f.notion.site/Second-Brain-991f084173fb4649bcb36a438fb648c0?pvs=4)
+2. [用户信息配置界面](https://ubiquitous-myth-d1f.notion.site/74dc39a6d0fc41ae9c353d8f2ae734b9?v=b1487a20df1647f2b1cb33e3b61d80f2&pvs=4)
 然后配置 `config.py` 文件以设置您用户信息配置界面的token、OpenAI密钥以及openweather API。
 
 ### 使用
