@@ -30,7 +30,7 @@
 ### Configuration
 First, open the following two pages and copy them to Notion:
 1. [Notion Second Brain Template](https://ubiquitous-myth-d1f.notion.site/Second-Brain-991f084173fb4649bcb36a438fb648c0?pvs=4)
-2. [User Information Configuration Interface](https://ubiquitous-myth-d1f.notion.site/74dc39a6d0fc41ae9c353d8f2ae734b9?v=b1487a20df1647f2b1cb33e3b61d80f2&pvs=4)
+2. [User Information Configuration Interface](https://ubiquitous-myth-d1f.notion.site/1604cf736e5248cab549aefc2d7239b9?v=29ad555af9f3424da9a78fd46ce6dc96&pvs=4)
 
 ### Installation and Running 
 #### 1. Local Running (Not Recommended)
