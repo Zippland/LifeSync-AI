@@ -1,8 +1,8 @@
 import openai
 import re
-from config import OPENAI_API_KEY, GPT_VERSION, SCHEDULE_PROMPT, PRESENT_LOCATION, USER_CAREER
+from config import OPENAI_API_KEY
 
-def generate_advice_with_gpt(data, advice_part):
+def generate_advice_with_gpt(advice_part, data, gpt_version, present_location, user_career, schedule_prompt=""):
     print("\nGenerating advice with gpt...")
     try:
         openai.api_key = OPENAI_API_KEY
@@ -23,10 +23,10 @@ def generate_advice_with_gpt(data, advice_part):
         elif advice_part == "2" or advice_part == "3":
             prompt += f"以下是今天的任务安排（可能包含以前没完成的任务）：\n{data}。\n"
             if advice_part == "2":
-                print("任务总结")
+                print("[任务总结]")
             else:
                 print("[时间轴]")
-                prompt += f"此外，如果没有被上述安排打断的话，{SCHEDULE_PROMPT}，如果和上述时间冲突就作废。\n\n"
+                prompt += f"此外，如果没有被上述安排打断的话，{schedule_prompt}，如果和上述时间冲突就作废。\n\n"
         elif advice_part == "4":
             print("[未来规划]")
             prompt += f"以下是未来任务安排：\n{data}。\n\n"
@@ -38,9 +38,9 @@ def generate_advice_with_gpt(data, advice_part):
         print("Waiting for response...")
         # 系统提示词
         response = openai.ChatCompletion.create(
-            model=GPT_VERSION,
+            model=gpt_version,
             messages=[
-                {"role": "system", "content": f"你是秘书，你正在向雇主做早晨的汇报，协助他规划一整天的时间安排。雇主是的职业是"+USER_CAREER+"，住在"+ PRESENT_LOCATION +"请据此在汇报时体现出秘书的专业性和对他的关心，并使用中文。请用HTML格式（不要CSS），只要body部分，包括一个h2主标题和其余内容。不要任何寒暄，不要任何称呼，不要任何问候语或开场白。"},
+                {"role": "system", "content": f"你是秘书，你正在向雇主做早晨的汇报，协助他规划一整天的时间安排。雇主是的职业是"+user_career+"，住在"+ present_location +"请据此在汇报时体现出秘书的专业性和对他的关心，并使用中文。请用HTML格式（不要CSS），只要body部分，包括一个h2主标题和其余内容。不要任何寒暄，不要任何称呼，不要任何问候语或开场白。"},
                 {"role": "user", "content": prompt}
             ],
             max_tokens=4096,  

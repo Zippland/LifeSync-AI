@@ -1,14 +1,12 @@
 from notion_client import Client
 from datetime import datetime, timedelta
-from config import NOTION_TOKEN, DATABASE_ID
 
-notion = Client(auth=NOTION_TOKEN)
-
-def fetch_tasks_from_notion(custom_date, mode="today"):
+def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, mode="today"):
+    notion = Client(auth=USER_NOTION_TOKEN)
     print("\nFetching [ "+mode+" ] tasks from Notion...\n")
     try:
         results = notion.databases.query(
-            database_id=DATABASE_ID,
+            database_id=USER_DATABASE_ID,
             filter={
                 "property": " Complete",  
                 "checkbox": {
