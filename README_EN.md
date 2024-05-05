@@ -29,7 +29,7 @@
 
 ### Configuration
 First, open the following two pages and copy them to Notion:
-1. [Notion Second Brain Template](https://ubiquitous-myth-d1f.notion.site/Second-Brain-991f084173fb4649bcb36a438fb648c0?pvs=4)
+1. [Notion Second Brain Template](https://ubiquitous-myth-d1f.notion.site/Second-Brain-dd7f04a080794073aad7834adb2e7e57?pvs=4)
 2. [User Information Configuration Interface](https://ubiquitous-myth-d1f.notion.site/1604cf736e5248cab549aefc2d7239b9?v=29ad555af9f3424da9a78fd46ce6dc96&pvs=4)
 
 ### Installation and Running 
