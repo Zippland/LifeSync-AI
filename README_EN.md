@@ -13,7 +13,7 @@
 - [X] **Weather Information**: Provides real-time weather updates and tailored suggestions based on your schedule.
 - [X] **Daily Email Notifications**: Sends daily summaries and task reminders to your email every morning to ensure you are always prepared.
 - [X] **Flexible Task Scheduling**: Adjusts your task management intelligently based on real-time data and personalized suggestions.
-- [ ] **Environmental Variable Management**: Automatically fetches and manages environmental variables from the Notion database.
+- [X] **Environmental Variable Management**: Automatically fetches and manages multiuser's environmental variables from the Notion database.
 - [ ] **Route Suggestions**: Provides daily commuting route suggestions based on user's travel destinations and environmental factors.
 - [ ] **Bill Monitoring and Summary**: Monitors user's bill transactions and dynamically summarizes and charts them.
 - [ ] **Calendar and Task Automation Management**: Automatically adds, deletes, and modifies calendar events and daily tasks through mainstream calendar and task management tools.
