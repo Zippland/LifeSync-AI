@@ -58,7 +58,7 @@ on:
     - cron: '0 22 * * *'  # 每天 22 点 
   workflow_dispatch:
 ```
-此处是 `cron`代表每日定时启动时间，以UTC 时间算，如`22`代表 `北京时间上午10点`。
+此处是 `cron`代表每日定时启动时间，以UTC 时间算，如`22`代表 `北京时间上午6点`。
 
 然后进入 `Setting -> Security -> Secrets and Variables -> Repository secrets`
 
