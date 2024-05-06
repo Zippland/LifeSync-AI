@@ -22,10 +22,10 @@
 
 ### 先决条件
 - Python 3.8+ （云端部署不需要）
-- 具有API访问权限的Notion账户（需自行配置intergretion）
-- Mailgun API密钥
-- OpenAI API密钥
-- OpenWeather API密钥
+- 具有API访问权限的Notion账户（在Notion官网申请并配置intergretion）
+- Mailgun API密钥（在 Mailgun 官网申请）
+- OpenAI API密钥（在 OpenAI 官网申请，**这是唯一会产生费用的步骤**）
+- OpenWeather API密钥（在 OpenWeather 官网申请）
 
 ### 配置
 先打开下列两个页面并复制于notion：
@@ -51,7 +51,7 @@ python main.py
 #### 2. 云端运行（推荐）
 在界面右上角fork本仓库。
 
-修改`.github/workflows/deploy.yml`文件：
+修改`.github/workflows/deploy.yml`文件中的启动时间：
 ```yaml
 on:
   schedule:
@@ -68,7 +68,7 @@ on:
 - `OPENAI_API_KEY`
 - `OPENWEATHER_API_KEY`
 
-此程序将会在固定时间自动运行，也可手动进入 `Action -> Daily Report-> run  workflow` 点击运行
+此程序将会在你设定的时间自动运行，也可手动进入 `Action -> Daily Report-> run  workflow` 点击运行
 
 ## 贡献
 我们欢迎各种形式的贡献。要贡献，请：
