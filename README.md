@@ -55,7 +55,7 @@ python main.py
 ```yaml
 on:
   schedule:
-    - cron: '0 22 * * *'  # 每天 22 点 
+    - cron: '0 22 * * *'
   workflow_dispatch:
 ```
 此处 `cron`代表每日定时启动时间，以UTC 时间算，如`cron: '0 22 * * *'`代表 `北京时间上午6点`。
