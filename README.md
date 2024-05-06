@@ -40,13 +40,13 @@ git clone https://github.com/Zippland/LifeSync-AI.git
 cd LifeSync-AI
 pip install -r requirements.txt
 ```
-配置 `config.py` 文件以设置您用户信息配置界面的token、OpenAI密钥以及openweather API。
+配置 `.env` 文件以设置您用户信息配置界面的token、OpenAI密钥以及openweather API。
 
 然后运行以下命令激活您的个人助理：
 ```bash
 python main.py
 ```
-启动应用程序前，请确保 `config.py` 中的所有配置都是正确的。
+启动应用程序前，请确保 `.env` 中的所有配置都是正确的。
 
 #### 2. 云端运行（推荐）
 在界面右上角fork本仓库。
