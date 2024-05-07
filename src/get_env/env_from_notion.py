@@ -15,9 +15,6 @@ def get_user_env_vars():
         user_id = page['properties']['USER_ID']['title'][0]['text']['content']
         # 假设数据库中有如下属性
         user_env_vars[user_id] = {
-            # Aunthentication
-            "USER_PASSWORD": page['properties']['USER_PASSWORD']['rich_text'][0]['text']['content'],
-            # personal info
             "USER_NAME": page['properties']['USER_NAME']['rich_text'][0]['text']['content'],
             "USER_CAREER": page['properties']['USER_CAREER']['rich_text'][0]['text']['content'],
             "PRESENT_LOCATION": page['properties']['PRESENT_LOCATION']['rich_text'][0]['text']['content'],
