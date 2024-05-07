@@ -2,7 +2,7 @@ import pytz
 from src.send_email.format_email import format_email
 from src.get_task.task_from_notion import fetch_tasks_from_notion
 from src.send_email.email_notifier import send_email
-from get_ai_advice.gpt_advice_generator import generate_advice_with_gpt
+from get_ai_advice.zhipuai_advice_generator import generate_advice_with_gpt
 from src.get_wheather import get_weather
 from datetime import datetime
 from src.get_env.env_from_notion import get_user_env_vars
