@@ -2,7 +2,7 @@ name: Daily Report
 
 on:
   schedule:
-    - cron: '0 22 * * *'  # 每天 22 点 UTC 时间
+    - cron: '0 4 * * *'  # 每天 22 点 UTC 时间
   workflow_dispatch:
 
 jobs:
