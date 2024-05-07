@@ -14,7 +14,7 @@ user_data = get_user_env_vars()
 for user_id in user_data:
     user_notion_token = user_data[user_id]["USER_NOTION_TOKEN"]
     user_database_id = user_data[user_id]["USER_DATABASE_ID"]
-    gpt_version = user_data[user_id]["GPT_VERSION"]
+    gpt_version = "gpt-3.5-turbo"
     present_location = user_data[user_id]["PRESENT_LOCATION"]
     user_career = user_data[user_id]["USER_CAREER"]
     schedule_prompt = user_data[user_id]["SCHEDULE_PROMPT"]
@@ -49,4 +49,4 @@ for user_id in user_data:
 
 
     email_body = f"{formated_advice}"
-    send_email(email_body, user_data[user_id]["EMAIL_RECEIVER"], user_data[user_id]["EMAIL_TITLE"])
+    print(email_body)

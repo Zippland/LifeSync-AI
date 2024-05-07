@@ -28,7 +28,7 @@ def get_user_env_vars():
             "EMAIL_TITLE": page['properties']['EMAIL_TITLE']['rich_text'][0]['text']['content']
         }
     print("Enviroments' variables fetched.")
-    print(user_env_vars)
+    # print(user_env_vars)
     return user_env_vars
 
 # # 假设已经运行了 get_user_env_vars 函数并保存了返回值
