@@ -1,7 +1,7 @@
 from notion_client import Client
 from config import ENV_NOTION_TOKEN, ENV_DATABASE_ID
 
-def get_user_env_var(user_id):
+def get_user_env_vars(user_id):
     print("Fetching user's environment variables")
     # Initialize Notion client
     notion = Client(auth=ENV_NOTION_TOKEN)
