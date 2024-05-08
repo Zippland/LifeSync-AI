@@ -28,7 +28,7 @@ jobs:
         ENV_DATABASE_ID: ${{ secrets.ENV_DATABASE_ID }}
         MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
         MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        AI_API_KEY: ${{ secrets.AI_API_KEY }}
         OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
       run: |
         python main.py
