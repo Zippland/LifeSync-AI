@@ -67,7 +67,7 @@ on:
 - `ENV_NOTION_TOKEN`
 - `MAILGUN_API_KEY`
 - `MAILGUN_DOMAIN`
-- `OPENAI_API_KEY`
+- `AI_API_KEY` (支持智谱清言后有改动）
 - `OPENWEATHER_API_KEY`
 
 此程序将会在你设定的时间自动运行，也可手动进入 `Action -> Daily Report-> run  workflow` 点击运行
