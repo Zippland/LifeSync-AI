@@ -6,31 +6,13 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, mo
     print("\nFetching [ "+mode+" ] tasks from Notion...\n")
     
     try:
-        # Set up filters for incomplete tasks
-        base_filter = {
-            "and": [
-                {
-                    "property": " Complete",
+        results = notion.databases.query(
+            database_id=USER_DATABASE_ID,
+            filter={"property": " Complete",
                     "checkbox": {
                         "equals": False
                     }
                 }
-            ]
-        }
-
-        # Check if the Overdue property exists and modify the filter accordingly
-        properties = notion.databases.retrieve(database_id=USER_DATABASE_ID)['properties']
-        if 'Overdue' in properties and properties['Overdue']['type'] == 'checkbox':
-            base_filter['and'].append({
-                "property": "Overdue",
-                "checkbox": {
-                    "equals": False
-                }
-            })
-
-        results = notion.databases.query(
-            database_id=USER_DATABASE_ID,
-            filter=base_filter
         )
         tasks = []
 
@@ -52,7 +34,6 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, mo
                 if custom_date <= task_date <= date_end:
                     task = {
                         'Name': row['properties']['Name']['title'][0]['text']['content'] if row['properties']['Name']['title'] else 'No name',
-                        'Location': row['properties']['Location']['rich_text'][0]['text']['content'] if 'rich_text' in row['properties']['Location'] and row['properties']['Location']['rich_text'] else 'No Location',
                         'Description': row['properties']['Description']['rich_text'][0]['text']['content'] if 'rich_text' in row['properties']['Description'] and row['properties']['Description']['rich_text'] else 'No description',
                         'Date': task_date.strftime('%Y-%m-%d')  # Date added to each task
                     }
