@@ -19,7 +19,7 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, mo
         # Define the date range based on the mode
         if mode == "today":
             date_end = custom_date
-            custom_date -= timedelta(days=1)  # Adjusted to include today's date
+            custom_date -= timedelta(days=7) 
         elif mode == "future":
             date_end = custom_date + timedelta(days=30)
             custom_date += timedelta(days=1)
