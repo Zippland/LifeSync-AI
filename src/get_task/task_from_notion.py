@@ -4,15 +4,33 @@ from datetime import datetime, timedelta
 def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, mode="today"):
     notion = Client(auth=USER_NOTION_TOKEN)
     print("\nFetching [ "+mode+" ] tasks from Notion...\n")
+    
     try:
+        # Set up filters for incomplete tasks
+        base_filter = {
+            "and": [
+                {
+                    "property": " Complete",
+                    "checkbox": {
+                        "equals": False
+                    }
+                }
+            ]
+        }
+
+        # Check if the Overdue property exists and modify the filter accordingly
+        properties = notion.databases.retrieve(database_id=USER_DATABASE_ID)['properties']
+        if 'Overdue' in properties and properties['Overdue']['type'] == 'checkbox':
+            base_filter['and'].append({
+                "property": "Overdue",
+                "checkbox": {
+                    "equals": False
+                }
+            })
+
         results = notion.databases.query(
             database_id=USER_DATABASE_ID,
-            filter={
-                "property": " Complete",  
-                "checkbox": {
-                    "equals": False 
-                }
-            }
+            filter=base_filter
         )
         tasks = []
 
@@ -39,7 +57,7 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, mo
                         'Date': task_date.strftime('%Y-%m-%d')  # Date added to each task
                     }
                     tasks.append(task)
-        #print(tasks)
+        # print(tasks)
         print("Fetching success.")
         return tasks
     except Exception as e:

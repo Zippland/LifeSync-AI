@@ -28,25 +28,25 @@ for user_id in user_data:
     no_format_advice = ""
     formated_advice = format_email("", user_name)
 
-    # weather
-    adviece_weather = email_advice_with_ai("1", weather, gpt_version, present_location, user_career)
-    formated_advice += format_email(adviece_weather)
-    no_format_advice += adviece_weather
-    # ontline of task
-    advice_outline = email_advice_with_ai("2", today_tasks, gpt_version, present_location, user_career)
-    formated_advice += format_email(advice_outline)
-    no_format_advice += advice_outline
-    # task time stamp
-    advice_timestamp = email_advice_with_ai("3", today_tasks, gpt_version, present_location, user_career, schedule_prompt)
-    formated_advice += format_email(advice_timestamp)
-    no_format_advice += advice_timestamp
-    # future task
-    advice_future = email_advice_with_ai("4", future_tasks, gpt_version, present_location, user_career)
-    formated_advice += format_email(advice_future)
-    no_format_advice += advice_future
-    # other advice
-    advice_others = email_advice_with_ai("5", no_format_advice, gpt_version, present_location, user_career)
-    formated_advice += format_email(advice_others, USER_NAME = user_data[user_id]["USER_NAME"], ending = True)
+    # # weather
+    # adviece_weather = email_advice_with_ai("1", weather, gpt_version, present_location, user_career)
+    # formated_advice += format_email(adviece_weather)
+    # no_format_advice += adviece_weather
+    # # ontline of task
+    # advice_outline = email_advice_with_ai("2", today_tasks, gpt_version, present_location, user_career)
+    # formated_advice += format_email(advice_outline)
+    # no_format_advice += advice_outline
+    # # task time stamp
+    # advice_timestamp = email_advice_with_ai("3", today_tasks, gpt_version, present_location, user_career, schedule_prompt)
+    # formated_advice += format_email(advice_timestamp)
+    # no_format_advice += advice_timestamp
+    # # future task
+    # advice_future = email_advice_with_ai("4", future_tasks, gpt_version, present_location, user_career)
+    # formated_advice += format_email(advice_future)
+    # no_format_advice += advice_future
+    # # other advice
+    # advice_others = email_advice_with_ai("5", no_format_advice, gpt_version, present_location, user_career)
+    # formated_advice += format_email(advice_others, USER_NAME = user_data[user_id]["USER_NAME"], ending = True)
 
 
     email_body = f"{formated_advice}"
