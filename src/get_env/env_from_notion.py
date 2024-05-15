@@ -23,6 +23,7 @@ def get_user_env_vars():
             "GPT_VERSION": page['properties']['GPT_VERSION']['rich_text'][0]['text']['content'],
             "USER_NOTION_TOKEN": page['properties']['USER_NOTION_TOKEN']['rich_text'][0]['text']['content'],
             "USER_DATABASE_ID": page['properties']['USER_DATABASE_ID']['rich_text'][0]['text']['content'],
+            "USER_EVENT_DATABASE_ID": page['properties']['USER_EVENT_DATABASE_ID']['rich_text'][0]['text']['content'],
             "EMAIL_RECEIVER": page['properties']['EMAIL_RECEIVER']['rich_text'][0]['text']['content'],
             "TIME_ZONE": page['properties']['TIME_ZONE']['rich_text'][0]['text']['content'],
             "EMAIL_TITLE": page['properties']['EMAIL_TITLE']['rich_text'][0]['text']['content']

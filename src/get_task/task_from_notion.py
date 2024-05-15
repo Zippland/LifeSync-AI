@@ -33,7 +33,7 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, mo
                 if mode == "future":
                     if custom_date <= task_date <= date_end:
                         task = {
-                            'Name': row['properties']['Name']['title'][0]['text']['content'] if row['properties']['Name']['title'] else 'NA',
+                            'Name': ''.join([part['text']['content'] for part in row['properties']['Name']['title']]) if row['properties']['Name']['title'] else 'NA',
                             'Description': row['properties']['Description']['rich_text'][0]['text']['content'] if 'rich_text' in row['properties']['Description'] and row['properties']['Description']['rich_text'] else 'NA',
                             'Date': task_date.strftime('%Y-%m-%d')  # Date added to each task
                         }
@@ -41,10 +41,12 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, mo
                 else:
                     if task_date <= date_end:
                         task = {
-                            'Name': row['properties']['Name']['title'][0]['text']['content'] if row['properties']['Name']['title'] else 'NA',
+                            'Name': ''.join([part['text']['content'] for part in row['properties']['Name']['title']]) if row['properties']['Name']['title'] else 'NA',
                             'Description': row['properties']['Description']['rich_text'][0]['text']['content'] if 'rich_text' in row['properties']['Description'] and row['properties']['Description']['rich_text'] else 'NA',
                         }
                         tasks.append(task)
+        if tasks == []:
+            task == [{'No compulsory task to do today'}]
         print(tasks)
         print("Fetching success.")
         return tasks
