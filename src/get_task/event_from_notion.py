@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 def fetch_event_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID):
     notion = Client(auth=USER_NOTION_TOKEN)
-    print("\nFetching tasks from Notion...\n")
+    print("\nFetching event from Notion...\n")
     
     try:
         results = notion.databases.query(
@@ -33,9 +33,10 @@ def fetch_event_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID):
                     task = {
                         'Name': ''.join([part['text']['content'] for part in row['properties']['Name']['title']]) if row['properties']['Name']['title'] else 'NA',
                         'Description': row['properties']['Description']['rich_text'][0]['text']['content'] if 'rich_text' in row['properties']['Description'] and row['properties']['Description']['rich_text'] else 'NA',
+                        'Location': row['properties']['Location']['rich_text'][0]['text']['content'] if 'rich_text' in row['properties']['Location'] and row['properties']['Location']['rich_text'] else 'NA',
                         'Start Date': start_date.split('T')[0] if start_date else 'NA',
-                        'End Date': end_date.split('T')[0] if end_date else 'NA',
                         'Start Time': start_datetime.time() if start_datetime and 'T' in start_date else 'NA',
+                        'End Date': end_date.split('T')[0] if end_date else 'NA',
                         'End Time': end_datetime.time() if end_datetime and 'T' in end_date else 'NA'
                     }
                     tasks.append(task)

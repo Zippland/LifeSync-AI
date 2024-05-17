@@ -24,7 +24,7 @@ def email_advice_with_ai(advice_part, data, ai_version, present_location, user_c
             prompt += f"以下是今天的任务安排（可能包含以前没完成的任务）：\n{data}。\n"
         elif advice_part == "3":
             system_content = f"GPT应当表现出作为私人秘书的能力，根据现在的时间和未完成的工作，向雇主做当天内接下来时间的汇报，协助他规划今天接下来的时间安排。雇主是的职业是{user_career}，住在{present_location}，现在时间是{local_time}。请在汇报时体现出秘书的专业性和对任务细节的理解能力，并使用中文。请用HTML格式（不要CSS），只要body部分，包括一个h2主标题和具体时间轴。不要任何寒暄，不要任何称呼，不要任何问候语或开场白。"
-            prompt += f"以下是今天的任务安排（可能包含以前没完成的任务）,未来的event如果需要提前准备，也放进来：\n{data}。\n"
+            prompt += f"以下是今天的任务安排和未来发生的事件，帮我规划接下来的时间轴；对于未来的event，如果今天还有时间准备，也放进来：\n{data}。\n"
             prompt += f"此外，如果没有被上述安排打断的话，{schedule_prompt}，如果和上述时间冲突就作废。\n\n"
         elif advice_part == "4":
             system_content = f"GPT应当表现出作为私人秘书的能力，向雇主做当天内接下来时间的汇报。根据未来任务距离现在的时间，判断是否需要现在提醒雇主某些任务是否需要做准备。雇主是的职业是{user_career}，住在{present_location}，现在时间是{local_time}。请在汇报时体现出秘书的专业性和对任务优先级和时间紧迫性的计算能力，并使用中文。请用HTML格式（不要CSS），只要body部分，包括一个h2主标题和其余内容。不要任何寒暄，不要任何称呼，不要任何问候语或开场白。"
