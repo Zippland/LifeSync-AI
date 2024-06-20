@@ -17,6 +17,7 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, mo
         tasks = []
 
         # Define the date range based on the mode
+        today = custom_date
         if mode == "today":
             date_end = custom_date
         elif mode == "future":
@@ -45,12 +46,18 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, mo
                     'end_time': None if not end_time or end_time.strftime('%H:%M:%S') == '00:00:00' else end_time.strftime('%H:%M:%S')
                 }
 
+                # Get the urgency level
+                urgency_level = row['properties']['紧急程度']['select']['name'] if '紧急程度' in row['properties'] and row['properties']['紧急程度']['select'] else 'NA'
+
                 # Check if the task date falls within the defined range
                 if mode == "future":
                     if (end_date and custom_date <= end_date <= date_end) or (start_date and custom_date <= start_date <= date_end):
+                        if start_date and start_date <= today:
+                            continue  # Skip tasks that have a start date less than or equal to today
                         task = {
                             'Name': ''.join([part['text']['content'] for part in row['properties']['Name']['title']]) if row['properties']['Name']['title'] else 'NA',
                             'Description': row['properties']['Description']['rich_text'][0]['text']['content'] if 'rich_text' in row['properties']['Description'] and row['properties']['Description']['rich_text'] else 'NA',
+                            'Urgency Level': urgency_level,
                             **task_dates  # Add the date and time information to each task
                         }
                         tasks.append(task)
@@ -59,6 +66,7 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, mo
                         task = {
                             'Name': ''.join([part['text']['content'] for part in row['properties']['Name']['title']]) if row['properties']['Name']['title'] else 'NA',
                             'Description': row['properties']['Description']['rich_text'][0]['text']['content'] if 'rich_text' in row['properties']['Description'] and row['properties']['Description']['rich_text'] else 'NA',
+                            'Urgency Level': urgency_level,
                             **task_dates  # Add the date and time information to each task
                         }
                         tasks.append(task)

@@ -23,47 +23,26 @@ for user_id in user_data:
     schedule_prompt = user_data[user_id]["SCHEDULE_PROMPT"]
     time_zone_offset = int(user_data[user_id]["TIME_ZONE"])
 
-    # Convert UTC time to user's local time
-    local_time = utc_now.astimezone(pytz.timezone(f'Etc/GMT{"+" if time_zone_offset < 0 else "-"}{abs(time_zone_offset)}'))
-    print("local_time: \n" + str(local_time))
-    custom_date = local_time.date()
+    # # Convert UTC time to user's local time
+    # local_time = utc_now.astimezone(pytz.timezone(f'Etc/GMT{"+" if time_zone_offset < 0 else "-"}{abs(time_zone_offset)}'))
+    # print("local_time: \n" + str(local_time))
+    # custom_date = local_time.date()
 
-    today_tasks = fetch_tasks_from_notion(custom_date, user_notion_token, user_database_id, "today")
-    future_tasks = fetch_tasks_from_notion(custom_date, user_notion_token, user_database_id, "future")
-    future_event = fetch_event_from_notion(custom_date, user_notion_token, user_event_database_id)
-    weather = get_weather(present_location)
+    # today_tasks = fetch_tasks_from_notion(custom_date, user_notion_token, user_database_id, "today")
+    # future_tasks = fetch_tasks_from_notion(custom_date, user_notion_token, user_database_id, "future")
+    # future_event = fetch_event_from_notion(custom_date, user_notion_token, user_event_database_id)
+    # weather = get_weather(present_location)
 
-    no_format_advice = ""
-    formated_advice = format_email("", user_name)
+    # data = {
+    #     "weather": weather,
+    #     "today_tasks": today_tasks,
+    #     "future_tasks": future_tasks,
+    #     "future_events": future_event,
+    #     "other_advice": ""
+    # }
 
-    # # weather
-    # advice_weather = email_advice_with_ai("1", weather, gpt_version, present_location, user_career, local_time)
-    # print("advice_weather:\n" + advice_weather)
-    # formated_advice += format_email(advice_weather)
-    # no_format_advice += advice_weather
+    advice = "email_advice_with_ai(data, gpt_version, present_location, user_career, local_time, schedule_prompt)"
+    print("advice:\n" + advice)
 
-    # # outline of task
-    # advice_outline = email_advice_with_ai("2", today_tasks, gpt_version, present_location, user_career, local_time)
-    # print("advice_outline:\n" + advice_outline)
-    # formated_advice += format_email(advice_outline)
-    # no_format_advice += advice_outline
-
-    # # task time stamp
-    # advice_timestamp = email_advice_with_ai("3", today_tasks+future_event, gpt_version, present_location, user_career, local_time, schedule_prompt)
-    # print("advice_timestamp:\n" + advice_timestamp)
-    # formated_advice += format_email(advice_timestamp)
-    # no_format_advice += advice_timestamp
-
-    # # future task
-    # advice_future = email_advice_with_ai("4", future_tasks+future_event, gpt_version, present_location, user_career, local_time)
-    # print("advice_future:\n" + advice_future)
-    # formated_advice += format_email(advice_future)
-    # no_format_advice += advice_future
-
-    # # other advice
-    # advice_others = email_advice_with_ai("5", no_format_advice, gpt_version, present_location, user_career, local_time)
-    # print("advice_others:\n" + advice_others)
-    # formated_advice += format_email(advice_others, USER_NAME=user_name, ending=True)
-
-    # email_body = f"{formated_advice}"
-    # send_email(email_body, user_data[user_id]["EMAIL_RECEIVER"], user_data[user_id]["EMAIL_TITLE"])
+    email_body = f"{format_email(advice, user_name)}"
+    send_email(email_body, user_data[user_id]["EMAIL_RECEIVER"], user_data[user_id]["EMAIL_TITLE"])
