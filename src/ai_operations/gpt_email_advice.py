@@ -28,7 +28,7 @@ def email_advice_with_ai(data, ai_version, present_location, user_career, local_
         - 其他安排提示：{schedule_prompt}
         """
 
-        system_content = f"GPT应当表现出作为私人秘书的能力，向雇主做当天内接下来时间的汇报，提醒他根据天气情况做相应的准备。雇主是{user_career}，住在{present_location}，现在时间是{local_time}。请在汇报时体现出秘书的专业性和对他的家人般的关心，并使用中文。请用HTML格式（不要CSS），只要body部分，包括一个h2主标题和其余内容。不要任何寒暄，不要任何称呼，不要任何问候语或开场白。"
+        system_content = f"GPT应当表现出作为私人秘书的能力，向雇主做当天内接下来时间的汇报，提醒他根据天气情况做相应的准备。现在时间是{local_time}。请在汇报时体现出秘书的专业性和对他的家人般的关心，并使用中文。请用HTML格式（不要CSS），只要body部分，包括一个h2主标题和其余内容。不要任何寒暄，不要任何称呼，不要任何问候语或开场白。"
 
         if "gpt" in ai_version.lower():
             openai.api_key = AI_API_KEY
