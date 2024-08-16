@@ -72,7 +72,7 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, mo
                         tasks.append(task)
 
         if not tasks:
-            tasks.append({'Message': 'No compulsory task to do today'})
+            tasks.append({'Message': 'No compulsory task to do.'})
 
         print(tasks)
         print("Fetching success.")
