@@ -37,8 +37,7 @@ for user_id in user_data:
         "weather": weather,
         "today_tasks": today_tasks,
         "future_tasks": future_tasks,
-        "future_events": future_event,
-        "other_advice": ""
+        "future_events": future_event
     }
 
     advice = email_advice_with_ai(data, gpt_version, present_location, user_career, local_time, schedule_prompt)

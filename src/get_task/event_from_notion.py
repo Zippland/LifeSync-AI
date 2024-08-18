@@ -13,7 +13,6 @@ def fetch_event_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID):
 
         # Define the date range based on the mode
         date_end = custom_date + timedelta(days=14)
-        custom_date += timedelta(days=1)
 
         for row in results["results"]:
             if 'Date' in row['properties'] and row['properties']['Date']['date']:
