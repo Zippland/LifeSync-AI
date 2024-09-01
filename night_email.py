@@ -28,23 +28,20 @@ for user_id in user_data:
     print("local_time: \n" + str(local_time))
     custom_date = local_time.date()
 
-    tasks = fetch_tasks_from_notion(custom_date, user_notion_token, user_database_id)
-    events = fetch_event_from_notion(custom_date, user_notion_token, user_event_database_id)
+    today_tasks = fetch_tasks_from_notion(custom_date, user_notion_token, user_database_id, "today")
+    future_tasks = fetch_tasks_from_notion(custom_date, user_notion_token, user_database_id, "future")
+    future_event = fetch_event_from_notion(custom_date, user_notion_token, user_event_database_id)
+    weather = get_weather(present_location)
 
     data = {
-        "weather": get_weather(present_location),
-        # tasks
-        "today_tasks": tasks["today_due"],
-        "in_progress_tasks":tasks["in_progress"],
-        "future_tasks": tasks["future"],
-        # events
-        "in_progress_events":events["in_progress"],
-        "future_events": events["upcoming"],
+        "weather": weather,
+        "today_tasks": today_tasks,
+        "future_tasks": future_tasks,
+        "future_events": future_event
     }
 
     advice = email_advice_with_ai(data, gpt_version, present_location, user_career, local_time, schedule_prompt)
-    print("Fimal advice:\n" + advice)
+    print("advice:\n" + advice)
 
-    #email_body = f"{format_email(advice, user_name)}"
-    #send_email(email_body, user_data[user_id]["EMAIL_RECEIVER"], user_data[user_id]["EMAIL_TITLE"])
-
+    email_body = f"{format_email(advice, user_name)}"
+    send_email(email_body, user_data[user_id]["EMAIL_RECEIVER"], user_data[user_id]["EMAIL_TITLE"])
