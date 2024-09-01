@@ -6,7 +6,7 @@ import re
 def email_advice_with_ai(data, ai_version, present_location, user_career, local_time, schedule_prompt=""):
     print("\nGenerating advice with gpt...")
     try:
-        # Construct the prompt
+        # Construct the prompt 
         prompt = f"""
         请你作为私人秘书，根据以下信息生成一封当天的汇报邮件。邮件应包括以下五个部分，每个部分都用<h2>标签作为标题，内容用段落标签<p>包裹。邮件内容应使用中文，并且只要HTML格式的body部分，不要CSS，不要任何寒暄，不要任何称呼，不要任何问候语或开场白：
 
