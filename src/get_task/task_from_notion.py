@@ -1,9 +1,9 @@
 from notion_client import Client
 from datetime import datetime, timedelta
 
-def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, mode="today"):
+def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID):
     notion = Client(auth=USER_NOTION_TOKEN)
-    print("\nFetching [ " + mode + " ] tasks from Notion...\n")
+    print("\nFetching tasks from Notion...\n")
     
     try:
         results = notion.databases.query(
@@ -14,18 +14,16 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, mo
                     }
                 }
         )
-        tasks = []
+        
+        # 初始化三类任务列表
+        tasks = {
+            "today_due": [],
+            "in_progress": [],
+            "future": []
+        }
 
-        # Define the date range based on the mode
         today = custom_date
-        if mode == "today":
-            date_end = custom_date
-        elif mode == "future":
-            date_end = custom_date + timedelta(days=30)
-            custom_date += timedelta(days=1)
-        else:
-            print(f"Invalid mode: {mode}. Use 'today' for today's tasks or 'future' for tasks within the next month.")
-            return []
+        future_date = today + timedelta(days=30)
 
         for row in results["results"]:
             if 'date' in row['properties']['Date'] and row['properties']['Date']['date']:
@@ -34,52 +32,47 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, mo
                 start_datetime = datetime.fromisoformat(date_info['start']) if 'start' in date_info and date_info['start'] else None
 
                 end_date = end_datetime.date() if end_datetime else None
-                end_time = end_datetime.time() if end_datetime else None
-
                 start_date = start_datetime.date() if start_datetime else None
-                start_time = start_datetime.time() if start_datetime else None
 
-                task_dates = {
-                    'start_date': start_date.strftime('%Y-%m-%d') if start_date else 'N/A',
-                    'start_time': None if not start_time or start_time.strftime('%H:%M:%S') == '00:00:00' else start_time.strftime('%H:%M:%S'),
-                    'end_date': end_date.strftime('%Y-%m-%d') if end_date else 'N/A',
-                    'end_time': None if not end_time or end_time.strftime('%H:%M:%S') == '00:00:00' else end_time.strftime('%H:%M:%S')
-                }
-
-                # Get the urgency level
+                # 获取紧急程度
                 urgency_level = row['properties']['紧急程度']['select']['name'] if '紧急程度' in row['properties'] and row['properties']['紧急程度']['select'] else 'NA'
 
-                # Check if the task date falls within the defined range
-                if mode == "future":
-                    if (end_date and custom_date <= end_date <= date_end) or (start_date and custom_date <= start_date <= date_end):
-                        if start_date and start_date <= today:
-                            continue  # Skip tasks that have a start date less than or equal to today
-                        task = {
-                            'Name': ''.join([part['text']['content'] for part in row['properties']['Name']['title']]) if row['properties']['Name']['title'] else 'NA',
-                            'Description': row['properties']['Description']['rich_text'][0]['text']['content'] if 'rich_text' in row['properties']['Description'] and row['properties']['Description']['rich_text'] else 'NA',
-                            'Urgency Level': urgency_level,
-                            **task_dates  # Add the date and time information to each task
-                        }
-                        tasks.append(task)
-                else:
-                    if (end_date and end_date <= date_end) or (start_date and start_date <= date_end):
-                        task = {
-                            'Name': ''.join([part['text']['content'] for part in row['properties']['Name']['title']]) if row['properties']['Name']['title'] else 'NA',
-                            'Description': row['properties']['Description']['rich_text'][0]['text']['content'] if 'rich_text' in row['properties']['Description'] and row['properties']['Description']['rich_text'] else 'NA',
-                            'Urgency Level': urgency_level,
-                            **task_dates  # Add the date and time information to each task
-                        }
-                        tasks.append(task)
+                # 获取完整页面信息
+                page_id = row['id']
+                page_details = notion.pages.retrieve(page_id=page_id)
 
-        if not tasks:
-            tasks.append({'Message': 'No compulsory task to do.'})
+                task = {
+                    'Name': ''.join([part['text']['content'] for part in row['properties']['Name']['title']]) if row['properties']['Name']['title'] else 'NA',
+                    'Description': row['properties']['Description']['rich_text'][0]['text']['content'] if 'rich_text' in row['properties']['Description'] and row['properties']['Description']['rich_text'] else 'NA',
+                    'Urgency Level': urgency_level,
+                    'Start Date': start_date.strftime('%Y-%m-%d') if start_date else 'N/A',
+                    'End Date': end_date.strftime('%Y-%m-%d') if end_date else 'N/A'
+                }
+
+                # 分类任务
+                if end_date and end_date < today:
+                    tasks["today_due"].append(task)
+                elif end_date == today:
+                    tasks["today_due"].append(task)
+                elif start_date and start_date <= today and (not end_date or end_date > today):
+                    tasks["in_progress"].append(task)
+                elif start_date and today < start_date <= future_date:
+                    tasks["future"].append(task)
+
+        # 如果某一类任务为空，添加提示信息
+        if not tasks["today_due"]:
+            tasks["today_due"].append({'Message': 'No tasks due today.'})
+        if not tasks["in_progress"]:
+            tasks["in_progress"].append({'Message': 'No tasks in progress.'})
+        if not tasks["future"]:
+            tasks["future"].append({'Message': 'No tasks starting in the next 30 days.'})
 
         print(tasks)
         print("Fetching success.")
         return tasks
     except Exception as e:
         print(f"Error fetching data from Notion: {e}")
-        return []
+        return {}
 
 # Example usage
 # custom_date = datetime.now().date()

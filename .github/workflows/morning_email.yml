@@ -31,4 +31,4 @@ jobs:
         AI_API_KEY: ${{ secrets.AI_API_KEY }}
         OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
       run: |
-        python main.py
+        python morning_email.py
