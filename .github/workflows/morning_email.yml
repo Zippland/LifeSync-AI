@@ -1,4 +1,4 @@
-name: Daily Report
+name: Morning Report
 
 on:
   schedule:
