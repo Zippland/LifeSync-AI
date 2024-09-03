@@ -1,4 +1,4 @@
-def format_email(advice, USER_NAME):
+def format_email(advice, USER_NAME, tittle):
     return f"""
     <!DOCTYPE html>
     <html lang="zh-CN">
@@ -80,12 +80,12 @@ def format_email(advice, USER_NAME):
         <div class="container">
             <!-- Header -->
             <div class="header">
-                <h1>日程提醒</h1>
+                <h1>{tittle}</h1>
             </div>
             <!-- Body -->
             <div class="body">
                 <h1>尊敬的{USER_NAME}：</h1>
-                <p>以下是您的日常提醒邮件。</p>
+                <p>以下是您的{tittle}邮件。</p>
                 <div class="advice">
                     {advice}
                 </div>

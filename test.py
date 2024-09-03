@@ -3,7 +3,7 @@ from src.send_email.format_email import format_email
 from src.get_task.task_from_notion import fetch_tasks_from_notion
 from src.send_email.email_notifier import send_email
 from src.ai_operations.ai_morning_advice import email_advice_with_ai
-from src.get_wheather import get_weather  # Corrected import typo
+from src.get_wheather import get_weather_forecast  # Corrected import typo
 from datetime import datetime
 from src.get_env.env_from_notion import get_user_env_vars
 from src.get_task.event_from_notion import fetch_event_from_notion
@@ -31,8 +31,10 @@ for user_id in user_data:
     tasks = fetch_tasks_from_notion(custom_date, user_notion_token, user_database_id)
     events = fetch_event_from_notion(custom_date, user_notion_token, user_event_database_id)
 
+    forecast_data = get_weather_forecast(present_location, time_zone_offset)
+
     data = {
-        "weather": get_weather(present_location),
+        "weather": forecast_data['today'],
         # tasks
         "today_tasks": tasks["today_due"],
         "in_progress_tasks":tasks["in_progress"],
@@ -45,6 +47,6 @@ for user_id in user_data:
     advice = email_advice_with_ai(data, gpt_version, present_location, user_career, local_time, schedule_prompt)
     print("Fimal advice:\n" + advice)
 
-    #email_body = f"{format_email(advice, user_name)}"
-    #send_email(email_body, user_data[user_id]["EMAIL_RECEIVER"], user_data[user_id]["EMAIL_TITLE"])
+    email_body = f"{format_email(advice, user_name,"日程晨报")}"
+    send_email(email_body, user_data[user_id]["EMAIL_RECEIVER"], user_data[user_id]["EMAIL_TITLE"])
 

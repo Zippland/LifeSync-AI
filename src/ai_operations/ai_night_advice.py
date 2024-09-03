@@ -1,33 +1,75 @@
 import openai  # Used for GPT models
 from zhipuai import ZhipuAI  # Import ZhipuAI for GLM models
 from config import AI_API_KEY
+from src.ai_operations.ai_iterator import iterator
 import re
 
 def email_advice_with_ai(data, ai_version, present_location, user_career, local_time, schedule_prompt=""):
     print("\nGenerating advice with gpt...")
     try:
-        # Construct the prompt 
-        prompt = f"""
-        请你作为私人秘书，根据以下信息生成一封当天的邮件。邮件应包括以下五个部分，每个部分都用<h2>标签作为标题，内容用段落标签<p>包裹。邮件内容应使用中文，并且只要HTML格式的body部分，不要CSS，不要任何寒暄，不要任何称呼，不要任何问候语或开场白：
 
-        1. 天气情况和建议：一句话简述今天天气情况，然后给出当天的穿搭建议、出行建议及注意事项（可能包括穿搭、防晒、雨具、防风等等）。
-        2. 时间安排建议：根据现实作息和工作时间，安排时间时请尽量遵守雇主需求：{schedule_prompt}，提出任务时间安排建议，记得留时间出来吃饭休息。现在时间是{local_time}，请提供具体、美观且详细的时间轴，同时把任务详情和注意事项用小字写在时间轴里面，并详细告诉我具体怎么做。
-        3. 未来任务提醒：如果未来有需要提前花时间准备的任务，而且预计今天已经在准备周期中，请提醒我。反之，如果今天不在准备周期，就不用说。
-        4. 今日任务概述：一句话总结今日任务，不用出现任务细节。
-        5. 注意事项：为了完成这些任务，需要注意什么？只用一句话告诉我具体的注意事项，不要宽泛，不要出现已有内容。
-        6. 今日任务概述：一句话总结今日任务，不用出现任务细节。
-
-        你的任务是生成一封包含以上五个部分的邮件。以下是相关信息：
-
+        prompt_info = f"""
+        1. 基础信息：
         - 天气信息：{data['weather']}
-        - 今日任务或长期任务，请根据日期注意辨别：{data['today_tasks']}
-        - 今日及未来任务和事件：{data['future_tasks']} {data['future_events']}
-        - 用户职业：{user_career}
-        - 用户所在地：{present_location}
-        - 现在时间：{local_time}
+        - 雇主职业：{user_career}
+        - 雇主所在地：{present_location}
+        - 现在的时间：{local_time}
+        - 雇主的时间安排需求，任务安排必须遵守，日程不用遵守：{schedule_prompt}
+
+        2. 未来30内已有时间安排的日程：
+        - 日程：已规定时间并已经开始了的既定日程：{data['in_progress_events']}
+        - 日程：即将开始的新日程：{data['future_events']}
+
+        3. 今天还没做完的任务
+        - 任务：今日到期的紧急任务，必须今日内安排，但是还没做完的任务：{data['today_tasks']}
+
+        4. 可选安排的任务
+        - 任务：已经开始的任务，可以提醒雇主要做：{data['in_progress_tasks']}
+
+        5. 未来任务
+        - 任务：即将开始的任务，可以提醒雇主要做：{data['future_tasks']},
         """
 
-        system_content = f"GPT应当表现出作为私人秘书的能力，向雇主做当天内接下来时间的汇报，提醒他根据天气情况做相应的准备。现在时间是{local_time}。安排时间时请尽量遵守雇主需求：{schedule_prompt}，对于end date不是今天的任务，如果时间安排不满足雇主作息要求，就不要安排在今天。请在汇报时体现出秘书的专业性和对他的家人般的关心，并使用中文。请用HTML格式（不要CSS），只要body部分，包括一个h2主标题和其余内容。不要任何寒暄，不要任何称呼，不要任何问候语或开场白。"
+        prompt_for_iter = f"""
+        私人秘书即将向用户总结今天的任务进展，并提前告知明天（或未来）的安排（不用规定时间）。每个事件分为“任务”和“日程”两种。请根据以下要求进行分析：
+        
+        你要做的事情 一：
+        对于每个“任务”，请详细分析4个部分：
+        1. 每个任务是什么，详细解析一下；
+        2. 怎么看待该任务的紧急程度；
+        3. 任务的实际执行建议。
+
+        你要做的事情 二：
+        考虑雇主可能的其他活动，如吃饭、洗澡、通勤、生活其他方面提醒等等。
+
+        你要做的事情 三：
+        对每个任务的紧急程度进行排序。
+
+        以下是相关信息：
+        {prompt_info}
+        """
+        ai_schedule = iterator(prompt_for_iter, ai_version)
+
+        # Construct the prompt 
+        prompt = f"""
+        请你作为私人秘书，根据以下信息生成一封当天的晚报邮件，时间安排和建议越详细越好。邮件应包括3个部分，每个部分都用<h2>标签作为标题，内容用段落标签<p>包裹。邮件内容应使用中文，并且只要HTML格式的body部分，不要CSS，不要任何寒暄，不要任何称呼，不要任何问候语或开场白。
+
+        1. 天气情况和建议：简述明天天气情况。并生成以及明天天的穿搭建议、出行建议及注意事项（可能包括穿搭、防晒、雨具、防风等等）。
+        2. 明日任务提醒和建议（越详细越好，不用规定时间）：总结当天未完成的任务，并提醒明天要做的任务（不用规定时间）。同时备注任务详情和注意事项，为用户写提示以更好地理解任务。
+        3. 未来任务和日程提醒和建议（越详细越好）：如果未来任务比较紧急，可以提醒未来要做的任务及其时间。同时备注任务详情和注意事项，为用户写提示以更好地理解任务。
+
+        你的任务是生成一封包含以上3个部分的邮件。
+        
+        以下是相关信息：
+        
+        {prompt_info}
+
+        整体事件的时间安排已经由gpt迭代过一次，以下是gpt的一些建议，请根据这些建议制定一个最终版本的时间安排出来（不要征求意见，只用强制安排时间）：
+        
+        【{ai_schedule}】
+        """
+
+        system_content = f"GPT应当表现出作为私人秘书的能力，向雇主总结当天的安排，提醒明天的安排，提醒他根据天气情况做相应的准备。请在汇报时体现出秘书的专业性和对他的关心，并使用中文。请用HTML格式（不要CSS），只要body部分，包括一个h2主标题和其余内容。不要任何寒暄，不要任何称呼，不要任何问候语或开场白。"
         print(system_content+"\n"+prompt)
         if "gpt" in ai_version.lower():
             openai.api_key = AI_API_KEY
@@ -37,7 +79,6 @@ def email_advice_with_ai(data, ai_version, present_location, user_career, local_
                     {"role": "system", "content": system_content},
                     {"role": "user", "content": prompt}
                 ],
-                max_tokens=4096,
                 temperature=0.3
             )
         elif "glm" in ai_version.lower():
@@ -48,7 +89,6 @@ def email_advice_with_ai(data, ai_version, present_location, user_career, local_
                     {"role": "system", "content": system_content},
                     {"role": "user", "content": prompt}
                 ],
-                max_tokens=4096,
                 temperature=0.3
             )
         print("Generated.\n")
