@@ -34,7 +34,7 @@ for user_id in user_data:
     forecast_data = get_weather_forecast(present_location, time_zone_offset)
 
     data = {
-        "weather": forecast_data['today'],
+        "weather": forecast_data['tomorrow'],
         # tasks
         "today_tasks": tasks["today_due"],
         "in_progress_tasks":tasks["in_progress"],
@@ -47,6 +47,6 @@ for user_id in user_data:
     advice = email_advice_with_ai(data, gpt_version, present_location, user_career, local_time, schedule_prompt)
     print("Fimal advice:\n" + advice)
 
-    email_body = f"{format_email(advice, user_name, "日程晨报")}"
+    email_body = f"{format_email(advice, user_name, "日程晚报")}"
     send_email(email_body, user_data[user_id]["EMAIL_RECEIVER"], user_data[user_id]["EMAIL_TITLE"])
 
