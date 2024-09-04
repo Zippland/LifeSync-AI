@@ -47,6 +47,7 @@ for user_id in user_data:
     advice = email_advice_with_ai(data, gpt_version, present_location, user_career, local_time, schedule_prompt)
     print("Fimal advice:\n" + advice)
 
-    email_body = f"{format_email(advice, user_name,"日程晨报")}"
+    tittle = "日程晨报"
+    email_body = f"{format_email(advice, user_name, tittle)}"
     send_email(email_body, user_data[user_id]["EMAIL_RECEIVER"], user_data[user_id]["EMAIL_TITLE"])
 
