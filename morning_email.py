@@ -1,12 +1,12 @@
 import pytz
 from src.send_email.format_email import format_email
-from src.get_task.task_from_notion import fetch_tasks_from_notion
+from src.get_notion.task_from_notion import fetch_tasks_from_notion
 from src.send_email.email_notifier import send_email
 from src.ai_operations.ai_morning_advice import email_advice_with_ai
 from src.get_wheather import get_weather_forecast  # Corrected import typo
 from datetime import datetime
 from src.get_env.env_from_notion import get_user_env_vars
-from src.get_task.event_from_notion import fetch_event_from_notion
+from src.get_notion.event_from_notion import fetch_event_from_notion
 
 # Get the current time in UTC, and then convert to the specified UTC offset
 utc_now = datetime.now(pytz.utc)
