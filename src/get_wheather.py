@@ -96,11 +96,11 @@ def get_weather_forecast(present_location, time_zone_offset):
         return {'error': f"JSON decode error: {str(e)}"}
 
 
-# 示例使用
-present_location = "Beijing"  # 替换为所需的地点
-time_zone_offset = 8  # 替换为所需的时区偏移
-forecast_data = get_weather_forecast(present_location, time_zone_offset)
+# # 示例使用
+# present_location = "Beijing"  # 替换为所需的地点
+# time_zone_offset = 8  # 替换为所需的时区偏移
+# forecast_data = get_weather_forecast(present_location, time_zone_offset)
 
-# 传递数据给目标函数
-today_data = forecast_data['today']
-tomorrow_data = forecast_data['tomorrow']
+# # 传递数据给目标函数
+# today_data = forecast_data['today']
+# tomorrow_data = forecast_data['tomorrow']
