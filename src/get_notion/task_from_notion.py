@@ -28,35 +28,40 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID):
         for row in results["results"]:
             if 'date' in row['properties']['Date'] and row['properties']['Date']['date']:
                 date_info = row['properties']['Date']['date']
+                
+                # 获取精确到分钟的开始和结束时间
                 end_datetime = datetime.fromisoformat(date_info['end']) if 'end' in date_info and date_info['end'] else None
                 start_datetime = datetime.fromisoformat(date_info['start']) if 'start' in date_info and date_info['start'] else None
 
-                end_date = end_datetime.date() if end_datetime else None
-                start_date = start_datetime.date() if start_datetime else None
+                end_time_str = end_datetime.strftime('%Y-%m-%d %H:%M') if end_datetime else None
+                start_time_str = start_datetime.strftime('%Y-%m-%d %H:%M') if start_datetime else None
 
                 # 获取紧急程度
                 urgency_level = row['properties']['紧急程度']['select']['name'] if '紧急程度' in row['properties'] and row['properties']['紧急程度']['select'] else 'NA'
 
-                # 获取完整页面信息
-                page_id = row['id']
-                page_details = notion.pages.retrieve(page_id=page_id)
+                # 提取并清理Description富文本内容
+                description = ''
+                if 'rich_text' in row['properties']['Description'] and row['properties']['Description']['rich_text']:
+                    description = ''.join([part['text']['content'] for part in row['properties']['Description']['rich_text']])
+                    # 清理特殊字符
+                    description = description.replace('\n', ' ').replace('\xa0', ' ').strip()
 
                 task = {
                     'Name': ''.join([part['text']['content'] for part in row['properties']['Name']['title']]) if row['properties']['Name']['title'] else 'NA',
-                    'Description': row['properties']['Description']['rich_text'][0]['text']['content'] if 'rich_text' in row['properties']['Description'] and row['properties']['Description']['rich_text'] else 'NA',
+                    'Description': description if description else 'NA',
                     'Urgency Level': urgency_level,
-                    'Start Date': start_date.strftime('%Y-%m-%d') if start_date else 'N/A',
-                    'End Date': end_date.strftime('%Y-%m-%d') if end_date else 'N/A'
+                    'Start Time': start_time_str if start_time_str else 'N/A',
+                    'End Time': end_time_str if end_time_str else 'N/A'
                 }
 
                 # 分类任务
-                if end_date and end_date < today:
+                if end_datetime and end_datetime.date() < today:
                     tasks["today_due"].append(task)
-                elif end_date == today:
+                elif end_datetime and end_datetime.date() == today:
                     tasks["today_due"].append(task)
-                elif start_date and start_date <= today and (not end_date or end_date > today):
+                elif start_datetime and start_datetime.date() <= today and (not end_datetime or end_datetime.date() > today):
                     tasks["in_progress"].append(task)
-                elif start_date and today < start_date <= future_date:
+                elif start_datetime and today < start_datetime.date() <= future_date:
                     tasks["future"].append(task)
 
         # 如果某一类任务为空，添加提示信息
