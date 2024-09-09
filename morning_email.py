@@ -49,5 +49,5 @@ for user_id in user_data:
 
     tittle = "日程晨报"
     email_body = f"{format_email(advice, user_name, tittle)}"
-    send_email(email_body, user_data[user_id]["EMAIL_RECEIVER"], user_data[user_id]["EMAIL_TITLE"])
+    send_email(email_body, user_data[user_id]["EMAIL_RECEIVER"], user_data[user_id]["EMAIL_TITLE"],time_zone_offset)
 

@@ -1,15 +1,23 @@
 import requests
 import re
 from datetime import datetime
+import pytz
 from config import MAILGUN_API_KEY, MAILGUN_DOMAIN
 
-def send_email(body,EMAIL_RECEIVER,EMAIL_TITLE):
+def send_email(body, EMAIL_RECEIVER, EMAIL_TITLE, timeoffset):
     print("Sending email...")
     try:
         # 使用正则表达式清理body中的Markdown代码块标记
         cleaned_body = re.sub(r'```(?:html)?', '', body)  # 删除```和```html
 
-        custom_date = datetime.now().strftime('%Y-%m-%d')
+        # 获取当前 UTC 时间
+        utc_now = datetime.utcnow().replace(tzinfo=pytz.utc)
+        
+        # 根据时区偏移量创建时区并转换时间
+        timezone_str = f'Etc/GMT{"+" if timeoffset < 0 else "-"}{abs(timeoffset)}'
+        local_timezone = pytz.timezone(timezone_str)
+        local_now = utc_now.astimezone(local_timezone)
+        custom_date = local_now.strftime('%Y-%m-%d')
 
         # 配置邮件参数
         data = {
@@ -34,4 +42,3 @@ def send_email(body,EMAIL_RECEIVER,EMAIL_TITLE):
     except Exception as e:
         print("An error occurred while sending the email:")
         print(e)
-
