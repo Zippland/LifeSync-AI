@@ -29,7 +29,7 @@ for user_id in user_data:
     custom_date = local_time.date()
 
     tasks = fetch_tasks_from_notion(custom_date, user_notion_token, user_database_id)
-    events = fetch_event_from_notion(custom_date, user_notion_token, user_event_database_id)
+    events = fetch_event_from_notion(custom_date, user_notion_token, user_event_database_id,time_zone_offset)
 
     forecast_data = get_weather_forecast(present_location, time_zone_offset)
 

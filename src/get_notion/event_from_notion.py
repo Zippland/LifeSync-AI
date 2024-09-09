@@ -1,7 +1,8 @@
 from notion_client import Client
 from datetime import datetime, timedelta
+import pytz
 
-def fetch_event_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID):
+def fetch_event_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, timezone_offset):
     notion = Client(auth=USER_NOTION_TOKEN)
     print("\nFetching events from Notion...\n")
     
@@ -19,14 +20,23 @@ def fetch_event_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID):
         today = custom_date
         date_end = custom_date + timedelta(days=30)
 
+        # 创建时区对象
+        tz = pytz.FixedOffset(timezone_offset * 60)  # 传入分钟
+
         for row in results["results"]:
             if 'Date' in row['properties'] and row['properties']['Date']['date']:
                 date_info = row['properties']['Date']['date']
                 start_date = date_info.get('start')
                 end_date = date_info.get('end')
 
+                # 解析时间并应用时区
                 start_datetime = datetime.fromisoformat(start_date) if start_date else None
                 end_datetime = datetime.fromisoformat(end_date) if end_date else None
+                
+                if start_datetime:
+                    start_datetime = start_datetime.astimezone(tz)
+                if end_datetime:
+                    end_datetime = end_datetime.astimezone(tz)
 
                 event_start_date = start_datetime.date() if start_datetime else None
                 event_end_date = end_datetime.date() if end_datetime else None
@@ -64,8 +74,9 @@ def fetch_event_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID):
         print(f"Error fetching data from Notion: {e}")
         return {"in_progress": [], "upcoming": []}
 
-# Example usage
+# 示例用法
 # custom_date = datetime.now().date()
 # USER_NOTION_TOKEN = 'your_notion_token'
 # USER_DATABASE_ID = 'your_database_id'
-# fetch_event_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID)
+# timezone_offset = 8  # 东八区
+# fetch_event_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, timezone_offset)
