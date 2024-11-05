@@ -3,7 +3,7 @@ from src.send_email.format_email import format_email
 from src.get_notion.task_from_notion import fetch_tasks_from_notion
 from src.send_email.email_notifier import send_email
 from src.ai_operations.ai_morning_advice import email_advice_with_ai
-from src.get_wheather import get_weather_forecast  # Corrected import typo
+from src.get_wheather import get_weather_forecast
 from datetime import datetime
 from src.get_env.env_from_notion import get_user_env_vars
 from src.get_notion.event_from_notion import fetch_event_from_notion
@@ -28,8 +28,10 @@ for user_id in user_data:
     print("local_time: \n" + str(local_time))
     custom_date = local_time.date()
 
-    tasks = fetch_tasks_from_notion(custom_date, user_notion_token, user_database_id)
-    events = fetch_event_from_notion(custom_date, user_notion_token, user_event_database_id,time_zone_offset)
+    tasks = fetch_tasks_from_notion(custom_date, user_notion_token, user_database_id, 
+                                  time_zone_offset, include_completed=False)  # 修正变量名
+    events = fetch_event_from_notion(custom_date, user_notion_token, user_event_database_id,
+                                   time_zone_offset, include_completed=False)  # 修正变量名
 
     forecast_data = get_weather_forecast(present_location, time_zone_offset)
 
@@ -37,17 +39,16 @@ for user_id in user_data:
         "weather": forecast_data['today'],
         # tasks
         "today_tasks": tasks["today_due"],
-        "in_progress_tasks":tasks["in_progress"],
+        "in_progress_tasks": tasks["in_progress"],
         "future_tasks": tasks["future"],
         # events
-        "in_progress_events":events["in_progress"],
-        "future_events": events["upcoming"],
+        "in_progress_events": events["in_progress"],
+        "future_events": events["upcoming"]
     }
 
     advice = email_advice_with_ai(data, gpt_version, present_location, user_career, local_time, schedule_prompt)
-    print("Fimal advice:\n" + advice)
+    print("Final advice:\n" + advice)
 
     tittle = "日程晨报"
     email_body = f"{format_email(advice, user_name, tittle)}"
-    send_email(email_body, user_data[user_id]["EMAIL_RECEIVER"], user_data[user_id]["EMAIL_TITLE"],time_zone_offset)
-
+    send_email(email_body, user_data[user_id]["EMAIL_RECEIVER"], user_data[user_id]["EMAIL_TITLE"], time_zone_offset)
