@@ -1,5 +1,5 @@
-import openai  # Used for GPT models
-from zhipuai import ZhipuAI  # Import ZhipuAI for GLM models
+import openai
+from zhipuai import ZhipuAI
 from config import AI_API_KEY
 from src.ai_operations.ai_iterator import iterator
 import re
@@ -7,7 +7,6 @@ import re
 def email_advice_with_ai(data, ai_version, present_location, user_career, local_time, schedule_prompt=""):
     print("\nGenerating advice with gpt...")
     try:
-
         prompt_info = f"""
         1. 基础信息：
         - 天气信息：{data['weather']}
@@ -27,47 +26,106 @@ def email_advice_with_ai(data, ai_version, present_location, user_career, local_
         """
 
         prompt_for_iter = f"""
-        私人秘书即将向用户汇报今天一整天的行程安排，每个事件分为“任务”和“日程”两种，需要你做两件事，来帮助他完成工作。“日程”是已有确定时间的任务，只用放在既定时间段即可。“任务”是你需要为雇主分析时间方案的任务。
-        
-        你要做的事情 一：
-        对于每个“任务”，请详细分析4个部分：
-        1. 每个任务是什么，详细解析一下；
-        2. 怎么看待该任务的紧急程度；
-        4. 考虑任务前后的预留时间；
+        私人秘书即将向用户汇报今天一整天的行程安排。请分析：
 
-        你要做的事情 二：
-        考虑雇主还会做什么事，比如吃饭、洗澡、通勤等等，注意预留这些的时间。
+        1. 固定日程：已确定时间的事项
+        2. 必要任务：必须今天完成的任务，按重要性排序
+        3. 可选任务：如果有时间可以处理的事项
+        4. 预留时间：用餐、休息、通勤等必要时间
+        5. 紧急程度：紧急且重要、重要但不紧急、其他普通任务
 
-        你要做的事情 三：
-        对每个任务的紧急程度进行排序。
-
-        只用写当天的，不用写明天的。
+        所有分析都只针对今天，不要考虑明天的安排。
 
         以下是相关信息：
         {prompt_info}
         """
+        
         ai_schedule = iterator(prompt_for_iter, ai_version)
 
-        # Construct the prompt 
         prompt = f"""
-        请你作为私人秘书，根据以下信息生成一封当天的晨报邮件，时间安排和建议越详细越好。邮件应包括3个部分，每个部分都用<h2>标签作为标题，内容用段落标签<p>包裹。邮件内容应使用中文，并且只要HTML格式的body部分，不要CSS，不要任何寒暄，不要任何称呼，不要任何问候语或开场白。
+        请你作为私人秘书，生成一封结构清晰的晨报邮件。请严格按照以下HTML结构输出：
 
-        1. 天气情况和建议：简要描述今天的天气情况及变化（不要写成流水账），然后生成今天的穿搭建议、出行建议及注意事项（可能包括穿搭、防晒、雨具、防风等等）。
-        2. 时间安排和建议（越详细越好）：根据现实作息和工作时间，提出任务时间安排建议，记得留时间出来吃饭休息。请提供具体、美观且详细的时间轴，同时把任务详情和注意事项用小字写在时间轴里面，并详细告诉我具体怎么做。
-        3. 注意事项：为了完成这些任务，需要注意什么？只用一句话告诉我具体的注意事项，不要宽泛，不要出现已有内容。
- 
-        你的任务是生成一封包含以上3个部分的邮件。
-        
-        以下是相关信息：
-        
+        1. 今日概览：
+        <div class="section">
+            <div class="section-header">
+                <h2>📅 今日概览</h2>
+            </div>
+            <div class="section-content">
+                <div class="overview-card">
+                    <h3>今日重点关注</h3>
+                    <p>[一句话概述今天最重要的1-2件事，务必简洁有力]</p>
+                </div>
+                
+                <div class="weather-info">
+                    <h3>天气提醒</h3>
+                    <p class="weather-summary">[简要天气描述，包括天气现象、温度、风速及其他重要内容等，最前面用天气emoji标识]</p>
+                    <p class="weather-advice">[根据天气给出的具体建议，如需要带伞或需要穿什么衣物等]</p>
+                </div>
+            </div>
+        </div>
+
+        2. 时间安排：
+        <div class="section">
+            <div class="section-header">
+                <h2>⏰ 时间安排</h2>
+            </div>
+            <div class="section-content">
+                <ul class="timeline">
+                    <li class="timeline-item">
+                        <div class="timeline-time">[具体时间（HH:MM）]</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">
+                                <strong>[事项名称]</strong>
+                                <span class="task-label task-priority-high">紧急</span>
+                            </h3>
+                            <p class="timeline-desc">
+                                [具体执行建议和注意事项（如有）]
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        3. 注意事项：
+        <div class="section">
+            <div class="section-header">
+                <h2>⚠️ 注意事项</h2>
+            </div>
+            <div class="section-content">
+                <ul class="important-notes">
+                    <li>[重要提醒1：具体且可执行的建议]</li>
+                    <li>[重要提醒2（如有）：具体且可执行的建议]</li>
+                    <!-- 最多不超过3条重要提醒 -->
+                </ul>
+            </div>
+        </div>
+
+        注意要点：
+        1. 时间安排要按时间顺序排列，并注意合理安排间隔
+        2. 每个时间段的描述要包含具体的行动建议
+        3. 根据任务紧急程度，准确使用不同的task-label样式（按照上文给你的紧急程度来，没有给你标识的不能标识为紧急）：
+           - task-priority-high：紧急且重要的任务
+           - task-priority-medium：重要但不紧急的任务
+           - task-priority-low：普通任务
+        4. 重要提醒最多3条，每条都要具体且可执行
+        5. 天气建议要与具体活动相关联
+
+        相关信息：
         {prompt_info}
 
-        整体事件的时间考虑已经由gpt迭代过一次，以下是gpt的一些想法，请根据这些建议制定一个最终版本的时间安排出来（不要征求意见，只用强制安排时间）：
-        
-        【{ai_schedule}】
+        之前的分析建议：
+        {ai_schedule}
         """
 
-        system_content = f"GPT应当表现出作为私人秘书的能力，向雇主做当天内接下来时间的汇报，提醒他根据天气情况做相应的准备。对于end date不是今天的任务，如果时间安排不满足雇主作息要求，就不要安排在今天。请在汇报时体现出秘书的专业性和对他的家人般的关心，并使用中文。请用HTML格式（不要CSS），只要body部分，包括一个h2主标题和其余内容。不要任何寒暄，不要任何称呼，不要任何问候语或开场白。"
+        system_content = """作为私人秘书，你需要生成一份结构清晰、重点突出的晨报。要求：
+        1. 严格遵循提供的HTML结构
+        2. 确保时间安排的逻辑性和可执行性
+        3. 准确使用优先级标签
+        4. 所有建议要具体且实用
+        5. 通过视觉层级突出重要信息
+        直接输出HTML内容，不要添加任何额外的开场白或结束语。"""
+
         print(system_content+"\n"+prompt)
         if "gpt" in ai_version.lower():
             openai.api_key = AI_API_KEY
