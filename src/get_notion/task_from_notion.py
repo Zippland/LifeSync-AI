@@ -14,7 +14,7 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, ti
     - include_completed: 是否包含已完成任务
     
     Returns:
-    - tasks: 包含不同类型任务的字典
+    - tasks: 包含不同类型任务的字典，如果某类任务为空则返回空列表而不是消息
     """
     notion = Client(auth=USER_NOTION_TOKEN)
     print("\nFetching tasks from Notion...\n")
@@ -29,7 +29,7 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, ti
         today_start = datetime.combine(today, datetime.min.time()).replace(tzinfo=tz)
         today_end = datetime.combine(tomorrow, datetime.min.time()).replace(tzinfo=tz)
 
-        # 查询数据库，获取包含完成状态的任务
+        # 查询数据库
         filter_conditions = {
             "and": [
                 {
@@ -93,7 +93,6 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, ti
                 # 根据完成状态和最后编辑时间分类任务
                 if is_completed:
                     if include_completed and today_start <= last_edited_time < today_end:
-                        # 只有今天完成的任务才加入completed列表
                         tasks["completed"].append(task)
                 else:
                     if end_datetime and end_datetime.date() == today:
@@ -103,18 +102,14 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, ti
                     elif start_datetime and today < start_datetime.date() <= future_date:
                         tasks["future"].append(task)
 
-        # 添加空列表提示信息
-        for key in tasks:
-            if not tasks[key]:
-                tasks[key] = [{'Message': f'No {key.replace("_", " ")} tasks.'}]
-
         print("Tasks fetched successfully.")
         return tasks
+
     except Exception as e:
         print(f"Error fetching data from Notion: {e}")
         return {
-            "today_due": [{'Message': 'Error fetching today due tasks.'}],
-            "in_progress": [{'Message': 'Error fetching in progress tasks.'}],
-            "future": [{'Message': 'Error fetching future tasks.'}],
-            "completed": [{'Message': 'Error fetching completed tasks.'}]
+            "today_due": [],
+            "in_progress": [],
+            "future": [],
+            "completed": []
         }

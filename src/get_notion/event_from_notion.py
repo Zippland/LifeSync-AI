@@ -96,35 +96,26 @@ def fetch_event_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, ti
                     print(f"Error details: {str(e)}")
                     continue
 
-        # 为空的类别添加提示信息
-        for key in events:
-            if not events[key]:
-                message_map = {
-                    "in_progress": "No events in progress today.",
-                    "tomorrow": "No events scheduled for tomorrow.",
-                    "upcoming": "No events scheduled for the coming days.",
-                    "completed": "No events completed today."
-                }
-                events[key] = [{'Message': message_map[key]}]
-
         print("Events fetched successfully with date categorization.")
         
         # 打印调试信息
         print(f"\nToday's date: {today}")
         print(f"Tomorrow's date: {tomorrow}")
         for key in events:
-            if not isinstance(events[key][0], dict) or 'Message' not in events[key][0]:
+            if events[key]:
                 print(f"\n{key} events:")
                 for event in events[key]:
                     print(f"- {event['Name']} ({event['Start Date']})")
+            else:
+                print(f"\nNo {key} events found.")
 
         return events
         
     except Exception as e:
         print(f"Error fetching data from Notion: {e}")
         return {
-            "in_progress": [{'Message': 'Error fetching in-progress events.'}],
-            "tomorrow": [{'Message': 'Error fetching tomorrow events.'}],
-            "upcoming": [{'Message': 'Error fetching upcoming events.'}],
-            "completed": [{'Message': 'Error fetching completed events.'}]
+            "in_progress": [],
+            "tomorrow": [],
+            "upcoming": [],
+            "completed": []
         }
