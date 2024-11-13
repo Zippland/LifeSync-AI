@@ -75,7 +75,7 @@ def email_advice_with_ai(data, ai_version, present_location, user_career, local_
                 
                 <ul class="timeline">
                     <li class="timeline-item">
-                        <div class="timeline-time">[完成时间]</div>
+                        <div class="timeline-time">[完成时间(不写日期)]</div>
                         <div class="timeline-content">
                             <h3 class="timeline-title">
                                 [完成的事项]
