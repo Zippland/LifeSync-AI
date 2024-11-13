@@ -53,5 +53,6 @@ for user_id in user_data:
     print("Final advice:\n" + advice)
 
     tittle = "日程晚报"
-    email_body = f"{format_email(advice, user_name, tittle,"")}"
+    time_of_day = "night"
+    email_body = f"{format_email(advice, user_name, tittle, time_of_day)}"
     send_email(email_body, user_data[user_id]["EMAIL_RECEIVER"], user_data[user_id]["EMAIL_TITLE"], time_zone_offset)
