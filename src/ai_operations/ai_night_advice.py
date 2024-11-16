@@ -129,7 +129,7 @@ def email_advice_with_ai(data, ai_version, present_location, user_career, local_
 
                 <ul class="timeline">
                     <li class="timeline-item">
-                        <div class="timeline-time">[具体时间(没有规定时间可写待定)]</div>
+                        <div class="timeline-time">[具体时间(日期和时间)]</div>
                         <div class="timeline-content">
                             <h3 class="timeline-title">
                                 [安排内容]
