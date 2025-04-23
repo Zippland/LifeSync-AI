@@ -1,3 +1,4 @@
+> 2025年4月23日起，本项目被高阶项目 [Bubbles](https://github.com/Zippland/Bubbles) 取代，不再更新，如有兴趣可以前往[Bubbles](https://github.com/Zippland/Bubbles) 项目。
 # LifeSync-AI
 
 - [English README](README_EN.md)
